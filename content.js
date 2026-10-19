@@ -120,9 +120,9 @@ window.SITE_CONTENT = {
         "texte": "Lit, chaise haute et jeux sur demande"
       },
       {
-        "icone": "etoile",
-        "titre": "climatisation",
-        "texte": "Clim reversible"
+        "icone": "clim",
+        "titre": "Climatisation",
+        "texte": "Réversible : fraîcheur l'été, chaleur l'hiver"
       },
       {
         "icone": "cafe",
