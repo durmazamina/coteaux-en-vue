@@ -107,6 +107,12 @@
   .galerie button:hover img { transform: scale(1.05); }
   .galerie button:first-child { grid-column: span 2; grid-row: span 2; }
   .galerie button:nth-child(6n+6), .galerie button:nth-child(6n+7) { grid-column: span 2; }
+  .galerie[hidden] { display: none; }
+  .onglets { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: -28px 0 34px; }
+  .onglets button { padding: 10px 20px; border: 1px solid rgba(187,154,90,.5); background: transparent; color: var(--brun); font-family: var(--sans); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s; }
+  .onglets button:hover { border-color: var(--or); }
+  .onglets button[aria-selected="true"] { background: var(--or); border-color: var(--or); color: var(--blanc); }
+  .voir-photos { display: inline-block; margin: -14px 0 24px; color: var(--or-fonce); font-size: .9rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
   .vide { border: 1px dashed rgba(187,154,90,.6); padding: 30px; text-align: center; color: var(--texte-doux); }
   .lightbox { position: fixed; inset: 0; background: rgba(30,21,15,.94); display: none; align-items: center; justify-content: center; z-index: 100; padding: 24px; }
   .lightbox.ouverte { display: flex; }
@@ -260,6 +266,10 @@
   function construire(C) {
     const nom = `${esc(C.identite.nomDebut)} <span>${esc(C.identite.nomFin)}</span>`;
     const logementsNoms = C.logements.items.map(l => l.nom);
+    // Albums photo (ancienne version : une seule liste « images »)
+    const albums = (C.galerie.albums || [{ nom: "", images: C.galerie.images || [] }])
+      .map(a => ({ nom: a.nom || "", images: a.images || [] }))
+      .filter(a => a.images.some(g => g.src));
     return `
 <header id="haut">
   <nav class="wrap nav" aria-label="Navigation principale">
@@ -315,6 +325,7 @@
           <h3>${esc(l.nom)}</h3>
           <p>${esc(l.description)}</p>
           <ul class="caracs">${pleins(l.caracteristiques).map(c => `<li>${esc(c)}</li>`).join("")}</ul>
+          ${albums.findIndex(a => a.nom.trim() === l.nom.trim()) >= 0 ? `<a href="#galerie" class="voir-photos" data-album="${albums.findIndex(a => a.nom.trim() === l.nom.trim())}">Voir les photos de ce logement</a>` : ""}
           <a href="#reserver" class="btn" data-logement="${esc(l.nom)}">Réserver ce logement</a>
         </div>
       </article>`).join("")}
@@ -334,8 +345,11 @@
 <section id="galerie">
   <div class="wrap">
     <div class="entete reveal">${entete(C.galerie)}</div>
-    <div class="galerie reveal">
-      ${C.galerie.images.map(g => `<button>${img(g.src, g.alt)}</button>`).join("")}
+    <div class="reveal">
+      ${albums.length > 1 ? `<div class="onglets" role="tablist">${albums.map((a, i) => `<button role="tab" aria-selected="${i === 0}" data-album="${i}">${esc(a.nom)}</button>`).join("")}</div>` : ""}
+      ${albums.map((a, i) => `<div class="galerie" data-album="${i}"${i ? " hidden" : ""}>
+        ${a.images.filter(g => g.src).map(g => `<button>${img(g.src, g.alt)}</button>`).join("")}
+      </div>`).join("")}
     </div>
   </div>
 </section>
@@ -490,8 +504,17 @@
       window.location.href = `mailto:${C.contact.email}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
     });
 
-    imgs = [...document.querySelectorAll(".galerie img")];
-    imgs.forEach((im, i) => im.parentElement.addEventListener("click", () => { montrer(i); lb.classList.add("ouverte"); }));
+    // Galerie : un album à la fois, la visionneuse défile dans l'album ouvert
+    document.querySelectorAll(".galerie").forEach(album => {
+      const liste = [...album.querySelectorAll("img")];
+      liste.forEach((im, i) => im.parentElement.addEventListener("click", () => { imgs = liste; montrer(i); lb.classList.add("ouverte"); }));
+    });
+    const ouvrirAlbum = n => {
+      document.querySelectorAll(".onglets button").forEach(b => b.setAttribute("aria-selected", b.dataset.album === String(n)));
+      document.querySelectorAll(".galerie").forEach(g => g.hidden = g.dataset.album !== String(n));
+    };
+    document.querySelectorAll(".onglets button").forEach(b => b.addEventListener("click", () => ouvrirAlbum(b.dataset.album)));
+    document.querySelectorAll(".voir-photos").forEach(a => a.addEventListener("click", () => ouvrirAlbum(a.dataset.album)));
 
     document.querySelectorAll(".reveal").forEach(el => {
       if (APERCU || !obs) el.classList.add("vu"); else obs.observe(el);

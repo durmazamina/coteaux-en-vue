@@ -235,11 +235,16 @@
         nouveau: () => ({ icone: "etoile", titre: "", texte: "" }),
         champs: [{ k: "icone", label: "Icône", type: "choix", options: ICONES }, T("titre", "Nom"), T("texte", "Détail")] }
     ]},
-    { id: "galerie", ancre: "galerie", nom: "Galerie photos", intro: "La première photo s'affiche en grand. Utilise les flèches pour changer l'ordre.", champs: [
+    { id: "galerie", ancre: "galerie", nom: "Galerie photos", intro: "Les photos sont rangées par album (un onglet par album sur le site). Dans chaque album, la première photo s'affiche en grand. Utilise les flèches pour changer l'ordre.", champs: [
       ...entete.map(c => ({ ...c, k: "galerie." + c.k })),
-      { k: "galerie.images", label: "Photos", type: "liste", ajout: "Ajouter une photo", nomElement: (e, i) => "Photo " + (i + 1),
-        nouveau: () => ({ src: "", alt: "" }),
-        champs: [P("src", "Photo"), T("alt", "Description courte", "Utile pour Google et les personnes malvoyantes.")] }
+      { k: "galerie.albums", label: "Albums", type: "liste", ajout: "Ajouter un album", nomElement: e => "Album · " + (e.nom || "sans nom"),
+        nouveau: () => ({ nom: "Nouvel album", images: [] }),
+        champs: [
+          T("nom", "Nom de l'album", "Écris exactement le nom d'un logement pour afficher « Voir les photos de ce logement » sur sa fiche."),
+          { k: "images", label: "Photos de l'album", type: "liste", ajout: "Ajouter une photo", nomElement: (e, i) => "Photo " + (i + 1),
+            nouveau: () => ({ src: "", alt: "" }),
+            champs: [P("src", "Photo"), T("alt", "Description courte", "Utile pour Google et les personnes malvoyantes.")] }
+        ] }
     ]},
     { id: "hotes", ancre: "hotes", nom: "Vos hôtes", intro: "Votre présentation.", champs: [
       ...entete.map(c => ({ ...c, k: "hotes." + c.k })),
@@ -277,6 +282,7 @@
   // ===================== État =====================
   let contenu = null;
   let enregistre = "";
+  let contenuInitial = "";  // version au chargement, pour fusionner si le site est modifié ailleurs
   let mode = null;          // "github" (en ligne) ou "dossier" (fichiers de l'ordinateur)
   let dossier = null;       // accès au dossier site-web (File System Access API)
   let jeton = "";
@@ -456,6 +462,32 @@
     return { commit: ref.object.sha, arbre: commit.tree.sha, contenuSha, fichiers };
   }
 
+  // Ancienne galerie (une seule liste de photos) → albums
+  function migrer(c) {
+    if (c.galerie && !c.galerie.albums) {
+      c.galerie.albums = [{ nom: "Toutes les photos", images: c.galerie.images || [] }];
+      delete c.galerie.images;
+    }
+    return c;
+  }
+
+  // Fusion à trois : ce qui a changé ici est gardé, ce qui a changé ailleurs aussi
+  const pareil = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const estObjet = v => v && typeof v === "object" && !Array.isArray(v);
+  function fusion(initial, ici, ailleurs) {
+    if (pareil(ici, initial)) return ailleurs;
+    if (pareil(ailleurs, initial)) return ici;
+    if (estObjet(initial) && estObjet(ici) && estObjet(ailleurs)) {
+      const r = {};
+      new Set([...Object.keys(ailleurs), ...Object.keys(ici)]).forEach(k => {
+        const v = fusion(initial[k], ici[k], ailleurs[k]);
+        if (v !== undefined) r[k] = v;
+      });
+      return r;
+    }
+    return ici; // même élément modifié des deux côtés : ta version l'emporte
+  }
+
   async function chargerDepuisGitHub() {
     depot = await etatDepot();
     const blob = await api(`/git/blobs/${depot.contenuSha}`);
@@ -474,9 +506,12 @@
     bouton.disabled = true; bouton.textContent = "Envoi…";
     try {
       const actuel = await etatDepot();
-      if (actuel.contenuSha !== depot.contenuSha &&
-          !confirm("Le site a été modifié ailleurs (par exemple depuis un autre appareil) depuis que tu as ouvert le panneau.\n\nOK : remplacer par tes modifications.\nAnnuler : ne rien envoyer (recharge ensuite la page pour récupérer la dernière version).")) {
-        return;
+      let fusionne = false;
+      if (actuel.contenuSha !== depot.contenuSha) {
+        // Modifié ailleurs depuis l'ouverture : on garde les deux (tes changements + ceux faits ailleurs)
+        const distant = migrer(lireFichierContenu(depuisBase64((await api(`/git/blobs/${actuel.contenuSha}`)).content)));
+        contenu = fusion(JSON.parse(contenuInitial), contenu, distant);
+        fusionne = true;
       }
       const elements = [];
       for (const chemin of photosAEnvoyer()) {
@@ -492,8 +527,11 @@
 
       depot = { commit: commit.sha, arbre: arbre.sha, contenuSha: texte.sha, fichiers: actuel.fichiers };
       elements.forEach(e => { if (e.path !== "content.js") { depot.fichiers.set(e.path, 1); delete enAttente[e.path]; } });
-      enregistre = JSON.stringify(contenu);
-      toast("Publié ✓ Ton site sera à jour dans 1 à 2 minutes.");
+      enregistre = contenuInitial = JSON.stringify(contenu);
+      if (fusionne) afficherSection(sectionActive);
+      toast(fusionne
+        ? "Publié ✓ Le site avait été modifié ailleurs : tes changements ont été ajoutés sans rien effacer."
+        : "Publié ✓ Ton site sera à jour dans 1 à 2 minutes.");
     } catch (e) {
       toast(messageErreurGitHub(e), true);
       if (e.status === 401) deconnecter();
@@ -596,7 +634,7 @@
 
   // ===================== Connexion et démarrage =====================
   function demarrer(c, m) {
-    contenu = c; mode = m; enregistre = JSON.stringify(c);
+    contenu = migrer(c); mode = m; enregistre = contenuInitial = JSON.stringify(contenu);
     $("#connexion").classList.remove("visible");
     $("#mode").replaceChildren(
       m === "github" ? "Connectée à GitHub" : "Fichiers de l'ordinateur",
