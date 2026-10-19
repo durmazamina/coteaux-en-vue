@@ -15,4 +15,6 @@ Site web des Coteaux en Vue : deux logements en rez-de-jardin avec piscine à Au
 
 1. Ouvrir `admin.html` depuis l'ordinateur avec Google Chrome ou Microsoft Edge.
 2. Modifier les textes et les photos, puis cliquer sur **Enregistrer**.
-3. Envoyer les changements sur GitHub (`content.js` et les nouvelles photos du dossier `images`).
+3. Double-cliquer sur `Publier.bat` : les modifications sont envoyées sur GitHub et le site en ligne se met à jour en 1 à 2 minutes.
+
+Site en ligne : https://durmazamina.github.io/coteaux-en-vue/
