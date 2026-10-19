@@ -249,7 +249,8 @@
 
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const emph = s => esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>");
-  const paras = arr => (arr || []).map(p => `<p>${esc(p)}</p>`).join("");
+  const pleins = arr => (arr || []).filter(t => String(t ?? "").trim());  // ignore les lignes laissées vides
+  const paras = arr => pleins(arr).map(p => `<p>${esc(p)}</p>`).join("");
   // En aperçu (panneau admin) : nouvelles photos pas encore en ligne, et adresse des photos sur GitHub
   let APERCU_IMAGES = {}, IMAGES_BASE = "";
   const srcImg = s => APERCU_IMAGES[s] || (IMAGES_BASE && !/^(https?:|data:)/.test(s) ? IMAGES_BASE + s : s);
@@ -284,7 +285,7 @@
       ${C.hero.bouton1 ? `<a href="#reserver" class="btn">${esc(C.hero.bouton1)}</a>` : ""}
       ${C.hero.bouton2 ? `<a href="#logements" class="btn btn-ligne">${esc(C.hero.bouton2)}</a>` : ""}
     </div>
-    ${C.hero.badges.length ? `<div class="hero-infos">${C.hero.badges.map(b => `<span>${esc(b)}</span>`).join("")}</div>` : ""}
+    ${pleins(C.hero.badges).length ? `<div class="hero-infos">${pleins(C.hero.badges).map(b => `<span>${esc(b)}</span>`).join("")}</div>` : ""}
   </div>
 </section>
 
@@ -313,7 +314,7 @@
           <span class="surtitre">${esc(l.surtitre)}</span>
           <h3>${esc(l.nom)}</h3>
           <p>${esc(l.description)}</p>
-          <ul class="caracs">${l.caracteristiques.map(c => `<li>${esc(c)}</li>`).join("")}</ul>
+          <ul class="caracs">${pleins(l.caracteristiques).map(c => `<li>${esc(c)}</li>`).join("")}</ul>
           <a href="#reserver" class="btn" data-logement="${esc(l.nom)}">Réserver ce logement</a>
         </div>
       </article>`).join("")}
@@ -377,7 +378,7 @@
   <div class="wrap deux-col">
     <div class="reveal">
       ${entete(C.reservation, `<p>${esc(C.reservation.texte)}</p>`)}
-      <ul class="avantages">${C.reservation.avantages.map(a => `<li>${esc(a)}</li>`).join("")}</ul>
+      <ul class="avantages">${pleins(C.reservation.avantages).map(a => `<li>${esc(a)}</li>`).join("")}</ul>
     </div>
     <form class="reveal" id="form-resa">
       <div class="plein">
