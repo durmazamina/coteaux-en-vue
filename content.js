@@ -229,20 +229,16 @@ window.SITE_CONTENT = {
     "texte": "Au calme de la campagne, tout en restant proche de la Ville rose et de ses trésors.",
     "lieux": [
       {
-        "nom": "Canal du Midi",
-        "duree": "12 min"
-      },
-      {
-        "nom": "Nailloux Outlet Village",
-        "duree": "25 min"
-      },
-      {
-        "nom": "Lac de la Thésauque",
-        "duree": "25 min"
+        "nom": "La Granja Del Castel",
+        "duree": "10 minutes à pieds"
       },
       {
         "nom": "Quartier des Carmes, Toulouse",
         "duree": "20 min"
+      },
+      {
+        "nom": "Canal du Midi",
+        "duree": "12 min"
       },
       {
         "nom": "Place du Capitole",
@@ -253,8 +249,16 @@ window.SITE_CONTENT = {
         "duree": "~30 min"
       },
       {
+        "nom": "Nailloux Outlet Village",
+        "duree": "25 min"
+      },
+      {
         "nom": "Cité de l'Espace",
         "duree": "~25 min"
+      },
+      {
+        "nom": "Lac de la Thésauque",
+        "duree": "25 min"
       },
       {
         "nom": "Lac de Saint-Ferréol",
