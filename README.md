@@ -1,4 +1,4 @@
-# Les Coteaux en Vue
+# Coteaux en Vue
 
 Site web des Coteaux en Vue : deux logements en rez-de-jardin avec piscine à Aureville, près de Toulouse.
 

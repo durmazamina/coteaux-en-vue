@@ -1,12 +1,12 @@
 @echo off
 chcp 65001 >nul
-title Publier le site Les Coteaux en Vue
+title Publier le site Coteaux en Vue
 cd /d "%~dp0"
 set "PATH=C:\Program Files\Git\cmd;%PATH%"
 
 echo.
 echo   ==============================================
-echo     Publication du site Les Coteaux en Vue
+echo     Publication du site Coteaux en Vue
 echo   ==============================================
 echo.
 
