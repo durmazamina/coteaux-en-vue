@@ -152,6 +152,14 @@ window.SITE_CONTENT = {
       {
         "src": "images/03-sejour-salle-a-manger.jpg",
         "alt": "Le séjour et le coin repas"
+      },
+      {
+        "src": "images/dsc-6270-hdr.jpg",
+        "alt": "cuisine coteaux en vue Studio"
+      },
+      {
+        "src": "images/dsc-6249-hdr.jpg",
+        "alt": "Chambre Studio séparé avec Rideaux"
       }
     ]
   },
