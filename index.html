@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Coteaux en Vue · Location avec piscine près de Toulouse</title>
+<meta name="description" content="Deux logements en rez-de-jardin avec piscine et terrasse privée à Aureville, sur les coteaux toulousains, à moins de 30 minutes de Toulouse. Réservez en direct auprès d'Amina et Ibrahim.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --or: #bb9a5a;
+    --or-fonce: #9c7d40;
+    --brun: #3d2b1f;
+    --creme: #f5efe6;
+    --vert: #5c7a5a;
+    --rose: #e8c9b8;
+    --blanc: #ffffff;
+    --texte: #3d2b1f;
+    --texte-doux: #6b5a4d;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Jost", system-ui, sans-serif;
+    --max: 1180px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); font-weight: 300; color: var(--texte); background: var(--blanc); line-height: 1.7; font-size: 17px; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; color: var(--brun); }
+  h2 { font-size: clamp(2.1rem, 4vw, 3rem); margin-bottom: 18px; }
+  h3 { font-size: 1.6rem; margin-bottom: 8px; }
+  .surtitre { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--or-fonce); font-weight: 500; margin-bottom: 14px; display: block; }
+  section { padding: 110px 0; }
+  .btn { display: inline-block; padding: 15px 34px; background: var(--or); color: var(--blanc); text-decoration: none; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem; font-weight: 500; border: 1px solid var(--or); transition: background .25s, color .25s; cursor: pointer; font-family: var(--sans); }
+  .btn:hover { background: var(--or-fonce); border-color: var(--or-fonce); }
+  .btn-ligne { background: transparent; color: var(--blanc); border-color: rgba(255,255,255,.8); }
+  .btn-ligne:hover { background: var(--blanc); color: var(--brun); border-color: var(--blanc); }
+
+  /* En-tête */
+  header { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .3s, box-shadow .3s; }
+  header.scrolled { background: rgba(255,255,255,.96); box-shadow: 0 1px 0 rgba(61,43,31,.08); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+  .logo { font-family: var(--serif); font-size: 1.55rem; color: var(--blanc); text-decoration: none; letter-spacing: .02em; }
+  .logo span { color: var(--or); font-style: italic; }
+  header.scrolled .logo { color: var(--brun); }
+  .menu { display: flex; gap: 34px; list-style: none; align-items: center; }
+  .menu a { text-decoration: none; color: var(--blanc); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; }
+  header.scrolled .menu a { color: var(--brun); }
+  .menu .btn { padding: 11px 22px; color: var(--blanc) !important; }
+  .burger { display: none; background: none; border: 0; cursor: pointer; width: 34px; height: 34px; position: relative; }
+  .burger span, .burger::before, .burger::after { content: ""; position: absolute; left: 4px; right: 4px; height: 1.5px; background: var(--blanc); transition: transform .3s, opacity .3s; }
+  .burger::before { top: 10px; } .burger span { top: 16px; } .burger::after { top: 22px; }
+  header.scrolled .burger span, header.scrolled .burger::before, header.scrolled .burger::after { background: var(--brun); }
+
+  /* Hero */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; color: var(--blanc); padding: 0 0 110px; }
+  .fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(42,29,20,.72) 0%, rgba(42,29,20,.35) 55%, rgba(42,29,20,.1) 100%), linear-gradient(180deg, rgba(42,29,20,.35) 0%, rgba(42,29,20,0) 30%, rgba(42,29,20,.55) 100%); }
+  .hero h1, .hero p { text-shadow: 0 2px 18px rgba(30,21,15,.35); }
+  .hero .wrap { position: relative; z-index: 1; width: 100%; }
+  .hero h1 { color: var(--blanc); font-size: clamp(2.8rem, 7vw, 5.6rem); max-width: 820px; margin-bottom: 18px; }
+  .hero h1 em { color: var(--rose); }
+  .hero p { font-size: 1.15rem; max-width: 560px; margin-bottom: 34px; opacity: .95; }
+  .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-infos { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 54px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,.35); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+
+  /* Bienvenue */
+  .bienvenue { background: var(--creme); }
+  .deux-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .bienvenue .photo { position: relative; }
+  .bienvenue .photo img { aspect-ratio: 4/5; object-fit: cover; width: 100%; }
+  .bienvenue .photo .petite { position: absolute; width: 46%; aspect-ratio: 1; right: -36px; bottom: -40px; border: 8px solid var(--creme); }
+  .bienvenue p + p { margin-top: 16px; }
+  .signature { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--or-fonce); margin-top: 26px; }
+
+  /* Logements */
+  .entete { text-align: center; max-width: 680px; margin: 0 auto 64px; }
+  .entete p { color: var(--texte-doux); }
+  .logements { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .logement { background: var(--blanc); border: 1px solid rgba(187,154,90,.3); display: flex; flex-direction: column; }
+  .logement img { aspect-ratio: 3/2; object-fit: cover; width: 100%; }
+  .logement .corps { padding: 34px 36px 38px; display: flex; flex-direction: column; flex: 1; }
+  .logement .corps > p { color: var(--texte-doux); margin-bottom: 22px; }
+  .caracs { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-bottom: 30px; font-size: .95rem; }
+  .caracs li { padding-left: 22px; position: relative; }
+  .caracs li::before { content: ""; position: absolute; left: 0; top: .72em; width: 10px; height: 1px; background: var(--or); }
+  .logement .btn { align-self: flex-start; margin-top: auto; }
+
+  /* Équipements */
+  .equipements { background: var(--brun); color: var(--creme); }
+  .equipements h2 { color: var(--creme); }
+  .equipements .surtitre { color: var(--or); }
+  .equipements .entete p { color: rgba(245,239,230,.75); }
+  .grille-equip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(187,154,90,.25); border: 1px solid rgba(187,154,90,.25); }
+  .equip { background: var(--brun); padding: 34px 26px; }
+  .equip svg { width: 34px; height: 34px; stroke: var(--or); fill: none; stroke-width: 1.3; margin-bottom: 16px; }
+  .equip strong { display: block; font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--creme); margin-bottom: 4px; }
+  .equip span { font-size: .92rem; color: rgba(245,239,230,.7); }
+
+  /* Galerie */
+  .galerie { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; grid-auto-flow: dense; gap: 12px; }
+  .galerie button { border: 0; padding: 0; cursor: zoom-in; overflow: hidden; background: var(--creme); }
+  .galerie img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .galerie button:hover img { transform: scale(1.05); }
+  .galerie button:first-child { grid-column: span 2; grid-row: span 2; }
+  .galerie button:nth-child(6n+6), .galerie button:nth-child(6n+7) { grid-column: span 2; }
+  .vide { border: 1px dashed rgba(187,154,90,.6); padding: 30px; text-align: center; color: var(--texte-doux); }
+  .lightbox { position: fixed; inset: 0; background: rgba(30,21,15,.94); display: none; align-items: center; justify-content: center; z-index: 100; padding: 24px; }
+  .lightbox.ouverte { display: flex; }
+  .lightbox img { max-height: 86vh; max-width: 100%; object-fit: contain; }
+  .lightbox button { position: absolute; background: none; border: 0; color: var(--creme); font-size: 2.4rem; cursor: pointer; padding: 12px 18px; font-family: var(--serif); }
+  .lb-fermer { top: 12px; right: 16px; }
+  .lb-prec { left: 8px; top: 50%; transform: translateY(-50%); }
+  .lb-suiv { right: 8px; top: 50%; transform: translateY(-50%); }
+
+  /* Hôtes */
+  .hotes { background: var(--creme); }
+  .hotes .photo img { aspect-ratio: 1; object-fit: cover; width: 100%; border-radius: 50%; border: 10px solid var(--blanc); }
+  .hotes p + p { margin-top: 16px; }
+
+  /* Infos pratiques */
+  .horaires { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 56px; }
+  .horaire { background: var(--creme); padding: 30px 34px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .horaire .label { font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; }
+  .horaire .heure { font-family: var(--serif); font-size: 2.6rem; color: var(--or-fonce); line-height: 1; }
+  .horaire small { display: block; font-size: .85rem; color: var(--texte-doux); text-transform: none; letter-spacing: 0; font-weight: 300; }
+  .regles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 40px; }
+  .regle .num { font-family: var(--serif); font-size: 1.1rem; color: var(--or); }
+  .regle h3 { font-size: 1.35rem; }
+  .regle p { color: var(--texte-doux); font-size: .95rem; }
+
+  /* Alentours */
+  .alentours { background: var(--blanc); border-top: 1px solid rgba(187,154,90,.25); }
+  .liste-lieux { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 48px; }
+  .lieu { padding: 22px 0; border-bottom: 1px solid rgba(61,43,31,.1); display: flex; justify-content: space-between; gap: 18px; align-items: baseline; }
+  .lieu strong { font-weight: 400; }
+  .lieu span { font-family: var(--serif); font-style: italic; color: var(--or-fonce); white-space: nowrap; font-size: 1.1rem; }
+
+  /* Réservation */
+  .reservation { position: relative; color: var(--creme); }
+  .reservation::after { content: ""; position: absolute; inset: 0; background: rgba(61,43,31,.86); }
+  .reservation .wrap { position: relative; z-index: 1; }
+  .reservation h2 { color: var(--creme); }
+  .reservation .surtitre { color: var(--or); }
+  .avantages { list-style: none; margin-top: 26px; }
+  .avantages li { padding: 10px 0 10px 30px; position: relative; border-bottom: 1px solid rgba(245,239,230,.15); }
+  .avantages li::before { content: "✓"; position: absolute; left: 0; color: var(--or); }
+  form { background: var(--creme); color: var(--texte); padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  form .plein { grid-column: 1 / -1; }
+  label { display: block; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 6px; }
+  input, select, textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(61,43,31,.2); background: var(--blanc); font-family: var(--sans); font-size: 1rem; color: var(--texte); border-radius: 0; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--or); outline-offset: -1px; }
+  textarea { min-height: 110px; resize: vertical; }
+  form .btn { width: 100%; }
+  .note-form { font-size: .82rem; color: var(--texte-doux); text-align: center; }
+
+  /* Pied de page */
+  footer { background: #2a1d14; color: rgba(245,239,230,.75); padding: 70px 0 34px; font-size: .95rem; }
+  .pied { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
+  footer .logo { color: var(--creme); display: inline-block; margin-bottom: 12px; }
+  footer h4 { font-family: var(--sans); font-size: .76rem; letter-spacing: .18em; text-transform: uppercase; color: var(--or); font-weight: 500; margin-bottom: 14px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--or); }
+  .copy { border-top: 1px solid rgba(245,239,230,.12); padding-top: 26px; font-size: .82rem; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  /* Apparition au défilement */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.vu { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    section { padding: 80px 0; }
+    .deux-col { grid-template-columns: 1fr; gap: 56px; }
+    .bienvenue .photo .petite { right: -8px; }
+    .logements { grid-template-columns: 1fr; }
+    .grille-equip { grid-template-columns: repeat(2, 1fr); }
+    .regles, .liste-lieux { grid-template-columns: 1fr 1fr; }
+    .galerie { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+    .pied { grid-template-columns: 1fr 1fr; }
+    .pied > div:first-child { grid-column: 1 / -1; }
+    .hotes .photo { max-width: 380px; margin: 0 auto; }
+  }
+  @media (max-width: 820px) {
+    .burger { display: block; }
+    .menu { position: fixed; inset: 78px 0 auto 0; background: var(--blanc); flex-direction: column; gap: 0; padding: 10px 24px 26px; box-shadow: 0 12px 24px rgba(61,43,31,.08); transform: translateY(-12px); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; }
+    .menu li { width: 100%; border-bottom: 1px solid rgba(61,43,31,.08); }
+    .menu li:last-child { border: 0; padding-top: 16px; }
+    .menu a { color: var(--brun); display: block; padding: 14px 0; }
+    .menu .btn { text-align: center; }
+    header.menu-ouvert { background: var(--blanc); }
+    header.menu-ouvert .logo { color: var(--brun); }
+    header.menu-ouvert .burger span { opacity: 0; }
+    header.menu-ouvert .burger::before, header.menu-ouvert .burger::after { background: var(--brun); }
+    header.menu-ouvert .burger::before { transform: translateY(6px) rotate(45deg); }
+    header.menu-ouvert .burger::after { transform: translateY(-6px) rotate(-45deg); }
+    header.menu-ouvert .menu { opacity: 1; transform: none; pointer-events: auto; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 16px; }
+    .hero { padding-bottom: 70px; }
+    .hero-infos { gap: 14px 24px; margin-top: 38px; }
+    .caracs, .regles, .liste-lieux, .horaires, form { grid-template-columns: 1fr; }
+    .grille-equip { grid-template-columns: 1fr 1fr; }
+    .equip { padding: 26px 18px; }
+    .galerie { grid-auto-rows: 150px; gap: 8px; }
+    .logement .corps, form { padding: 26px 22px; }
+    .pied { grid-template-columns: 1fr; }
+    .horaire .heure { font-size: 2.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site"></div>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="lb-fermer" aria-label="Fermer">×</button>
+  <button class="lb-prec" aria-label="Photo précédente">‹</button>
+  <img alt="">
+  <button class="lb-suiv" aria-label="Photo suivante">›</button>
+</div>
+
+<!-- Tous les textes et photos du site sont dans content.js (modifiables depuis admin.html) -->
+<script src="content.js"></script>
+<script>
+  const APERCU = new URLSearchParams(location.search).has("apercu");
+
+  const ICONES = {
+    piscine: '<path d="M2 18c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M2 21.5c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M8 15V5a2 2 0 0 1 4 0M16 15V5a2 2 0 0 0-4 0M8 9h8"/>',
+    maison: '<path d="M3 11l9-7 9 7M5 10v10h14V10M9 20v-6h6v6"/>',
+    wifi: '<path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/>',
+    tv: '<rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/>',
+    linge: '<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 8h16"/><circle cx="12" cy="14.5" r="3.5"/><path d="M7 5.5h1"/>',
+    cuisine: '<path d="M4 3h16v18H4zM4 9h16M8 6h.01M11 6h.01"/><rect x="7" y="12" width="10" height="6"/>',
+    voiture: '<path d="M5 17h14M6 17V9.5L8 6h8l2 3.5V17M6 17v2M18 17v2M6 12h12"/><circle cx="8.5" cy="14.5" r=".8"/><circle cx="15.5" cy="14.5" r=".8"/>',
+    bebe: '<path d="M9 4a3 3 0 1 0 6 0M7 21v-6l-2-1 2-6h10l2 6-2 1v6"/>',
+    clim: '<path d="M12 2v20M4.5 6.5l15 11M19.5 6.5l-15 11M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/>',
+    cafe: '<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/>',
+    jardin: '<path d="M12 21V11M12 11c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5-7-5 0 4 2.5 5 7 5z"/>',
+    lit: '<path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5M7 12a1.5 1.5 0 1 0 0-.01"/>',
+    soleil: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    etoile: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>'
+  };
+
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const emph = s => esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>");
+  const paras = arr => (arr || []).map(p => `<p>${esc(p)}</p>`).join("");
+  const img = (src, alt, cls = "") => src ? `<img${cls ? ` class="${cls}"` : ""} src="${esc(src)}" alt="${esc(alt)}">` : "";
+  const entete = (s, extra = "") => `<span class="surtitre">${esc(s.surtitre)}</span><h2>${emph(s.titre)}</h2>${extra}`;
+
+  function construire(C) {
+    const nom = `${esc(C.identite.nomDebut)} <span>${esc(C.identite.nomFin)}</span>`;
+    const logementsNoms = C.logements.items.map(l => l.nom);
+    return `
+<header id="haut">
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a href="#" class="logo">${nom}</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
+    <ul class="menu">
+      <li><a href="#logements">Logements</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+      <li><a href="#alentours">Alentours</a></li>
+      <li><a href="#reserver" class="btn">Réserver</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="accueil">
+  ${img(C.hero.image, "", "fond")}
+  <div class="wrap">
+    <span class="surtitre" style="color:var(--rose)">${esc(C.hero.surtitre)}</span>
+    <h1>${emph(C.hero.titre)}</h1>
+    <p>${esc(C.hero.texte)}</p>
+    <div class="actions">
+      ${C.hero.bouton1 ? `<a href="#reserver" class="btn">${esc(C.hero.bouton1)}</a>` : ""}
+      ${C.hero.bouton2 ? `<a href="#logements" class="btn btn-ligne">${esc(C.hero.bouton2)}</a>` : ""}
+    </div>
+    ${C.hero.badges.length ? `<div class="hero-infos">${C.hero.badges.map(b => `<span>${esc(b)}</span>`).join("")}</div>` : ""}
+  </div>
+</section>
+
+<section class="bienvenue" id="bienvenue">
+  <div class="wrap deux-col">
+    <div class="photo reveal">
+      ${img(C.bienvenue.image, "Le logement")}
+      ${img(C.bienvenue.imagePetite, "Détail de décoration", "petite")}
+    </div>
+    <div class="reveal">
+      ${entete(C.bienvenue)}
+      ${paras(C.bienvenue.paragraphes)}
+      ${C.bienvenue.signature ? `<p class="signature">${esc(C.bienvenue.signature)}</p>` : ""}
+    </div>
+  </div>
+</section>
+
+<section id="logements">
+  <div class="wrap">
+    <div class="entete reveal">${entete(C.logements, `<p>${esc(C.logements.texte)}</p>`)}</div>
+    <div class="logements">
+      ${C.logements.items.map(l => `
+      <article class="logement reveal">
+        ${img(l.image, l.nom)}
+        <div class="corps">
+          <span class="surtitre">${esc(l.surtitre)}</span>
+          <h3>${esc(l.nom)}</h3>
+          <p>${esc(l.description)}</p>
+          <ul class="caracs">${l.caracteristiques.map(c => `<li>${esc(c)}</li>`).join("")}</ul>
+          <a href="#reserver" class="btn" data-logement="${esc(l.nom)}">Réserver ce logement</a>
+        </div>
+      </article>`).join("")}
+    </div>
+  </div>
+</section>
+
+<section class="equipements" id="equipements">
+  <div class="wrap">
+    <div class="entete reveal">${entete(C.equipements, `<p>${esc(C.equipements.texte)}</p>`)}</div>
+    <div class="grille-equip reveal">
+      ${C.equipements.items.map(e => `<div class="equip"><svg viewBox="0 0 24 24">${ICONES[e.icone] || ICONES.etoile}</svg><strong>${esc(e.titre)}</strong><span>${esc(e.texte)}</span></div>`).join("")}
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="wrap">
+    <div class="entete reveal">${entete(C.galerie)}</div>
+    <div class="galerie reveal">
+      ${C.galerie.images.map(g => `<button>${img(g.src, g.alt)}</button>`).join("")}
+    </div>
+  </div>
+</section>
+
+<section class="hotes" id="hotes">
+  <div class="wrap deux-col">
+    <div class="photo reveal">${img(C.hotes.image, C.hotes.titre)}</div>
+    <div class="reveal">
+      ${entete(C.hotes)}
+      ${paras(C.hotes.paragraphes)}
+      ${C.hotes.signature ? `<p class="signature">${esc(C.hotes.signature)}</p>` : ""}
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <div class="entete reveal">${entete(C.infos)}</div>
+    <div class="horaires reveal">
+      <div class="horaire"><div class="label">Arrivée<small>${esc(C.infos.arrivee.note)}</small></div><div class="heure">${esc(C.infos.arrivee.heure)}</div></div>
+      <div class="horaire"><div class="label">Départ<small>${esc(C.infos.depart.note)}</small></div><div class="heure">${esc(C.infos.depart.heure)}</div></div>
+    </div>
+    <div class="regles reveal">
+      ${C.infos.regles.map((r, i) => `<div class="regle"><div class="num">${String(i + 1).padStart(2, "0")}</div><h3>${esc(r.titre)}</h3><p>${esc(r.texte)}</p></div>`).join("")}
+    </div>
+  </div>
+</section>
+
+<section id="alentours" class="alentours">
+  <div class="wrap">
+    <div class="entete reveal">${entete(C.alentours, `<p>${esc(C.alentours.texte)}</p>`)}</div>
+    <div class="liste-lieux reveal">
+      ${C.alentours.lieux.map(l => `<div class="lieu"><strong>${esc(l.nom)}</strong><span>${esc(l.duree)}</span></div>`).join("")}
+    </div>
+  </div>
+</section>
+
+<section id="reserver" class="reservation">
+  ${img(C.reservation.image, "", "fond")}
+  <div class="wrap deux-col">
+    <div class="reveal">
+      ${entete(C.reservation, `<p>${esc(C.reservation.texte)}</p>`)}
+      <ul class="avantages">${C.reservation.avantages.map(a => `<li>${esc(a)}</li>`).join("")}</ul>
+    </div>
+    <form class="reveal" id="form-resa">
+      <div class="plein">
+        <label for="f-logement">Logement</label>
+        <select id="f-logement" name="logement">
+          <option>Peu importe</option>
+          ${logementsNoms.map(n => `<option>${esc(n)}</option>`).join("")}
+          ${logementsNoms.length > 1 ? "<option>Les deux logements</option>" : ""}
+        </select>
+      </div>
+      <div><label for="f-arrivee">Arrivée</label><input type="date" id="f-arrivee" name="arrivee" required></div>
+      <div><label for="f-depart">Départ</label><input type="date" id="f-depart" name="depart" required></div>
+      <div><label for="f-nom">Nom</label><input type="text" id="f-nom" name="nom" required autocomplete="name"></div>
+      <div><label for="f-voyageurs">Voyageurs</label><input type="number" id="f-voyageurs" name="voyageurs" min="1" value="2" required></div>
+      <div class="plein"><label for="f-email">E-mail</label><input type="email" id="f-email" name="email" required autocomplete="email"></div>
+      <div class="plein"><label for="f-message">Message</label><textarea id="f-message" name="message" placeholder="Bébé, arrivée tardive, recharge électrique…"></textarea></div>
+      <div class="plein"><button type="submit" class="btn">Envoyer ma demande</button></div>
+      <p class="plein note-form">Votre demande s'ouvre dans votre messagerie, prête à être envoyée.</p>
+    </form>
+  </div>
+</section>
+
+<footer id="pied">
+  <div class="wrap">
+    <div class="pied">
+      <div>
+        <a href="#" class="logo">${esc(C.identite.nomDebut)} <span style="color:var(--or);font-style:italic">${esc(C.identite.nomFin)}</span></a>
+        <p>${esc(C.footer.texte)}</p>
+      </div>
+      <div>
+        <h4>Adresse</h4>
+        <p>${esc(C.contact.adresse).replace(/\n/g, "<br>")}</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>
+          ${C.contact.email ? `<a href="mailto:${esc(C.contact.email)}">${esc(C.contact.email)}</a><br>` : ""}
+          ${C.contact.telephone ? `<a href="tel:${esc(C.contact.telephone.replace(/\s/g, ""))}">${esc(C.contact.telephone)}</a>` : ""}
+          ${!C.contact.email && !C.contact.telephone ? "Coordonnées à renseigner" : ""}
+        </p>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© ${new Date().getFullYear()} ${esc(C.identite.nomDebut)} ${esc(C.identite.nomFin)}</span>
+      <a href="#haut">Retour en haut ↑</a>
+    </div>
+  </div>
+</footer>`;
+  }
+
+  // ---------- Comportements (rebranchés après chaque affichage) ----------
+  const header = () => document.querySelector("header");
+  const majHeader = () => header() && header().classList.toggle("scrolled", window.scrollY > 40);
+  window.addEventListener("scroll", majHeader, { passive: true });
+
+  const lb = document.querySelector(".lightbox"), lbImg = lb.querySelector("img");
+  let imgs = [], idx = 0;
+  const montrer = i => { idx = (i + imgs.length) % imgs.length; lbImg.src = imgs[idx].src; lbImg.alt = imgs[idx].alt; };
+  lb.querySelector(".lb-fermer").addEventListener("click", () => lb.classList.remove("ouverte"));
+  lb.querySelector(".lb-prec").addEventListener("click", () => montrer(idx - 1));
+  lb.querySelector(".lb-suiv").addEventListener("click", () => montrer(idx + 1));
+  lb.addEventListener("click", e => { if (e.target === lb) lb.classList.remove("ouverte"); });
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("ouverte")) return;
+    if (e.key === "Escape") lb.classList.remove("ouverte");
+    if (e.key === "ArrowLeft") montrer(idx - 1);
+    if (e.key === "ArrowRight") montrer(idx + 1);
+  });
+
+  const obs = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("vu"); obs.unobserve(en.target); }
+  }), { threshold: .12 }) : null;
+
+  function brancher(C) {
+    document.title = C.seo.titre;
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
+    meta.content = C.seo.description;
+    majHeader();
+
+    const h = header(), burger = h.querySelector(".burger");
+    burger.addEventListener("click", () => {
+      const ouvert = h.classList.toggle("menu-ouvert");
+      burger.setAttribute("aria-expanded", ouvert);
+    });
+    h.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", () => {
+      h.classList.remove("menu-ouvert"); burger.setAttribute("aria-expanded", "false");
+    }));
+
+    document.querySelectorAll("[data-logement]").forEach(b => b.addEventListener("click", () => {
+      document.getElementById("f-logement").value = b.dataset.logement;
+    }));
+
+    const arr = document.getElementById("f-arrivee"), dep = document.getElementById("f-depart");
+    const aujourdhui = new Date().toISOString().slice(0, 10);
+    arr.min = aujourdhui; dep.min = aujourdhui;
+    arr.addEventListener("change", () => { dep.min = arr.value; if (dep.value && dep.value <= arr.value) dep.value = ""; });
+
+    document.getElementById("form-resa").addEventListener("submit", e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const fr = d => d ? new Date(d).toLocaleDateString("fr-FR") : "";
+      const corps =
+        `Bonjour,\n\nJe souhaiterais réserver :\n` +
+        `- Logement : ${f.get("logement")}\n- Arrivée : ${fr(f.get("arrivee"))}\n- Départ : ${fr(f.get("depart"))}\n` +
+        `- Voyageurs : ${f.get("voyageurs")}\n\n${f.get("message") || ""}\n\n${f.get("nom")}\n${f.get("email")}`;
+      const sujet = `Demande de réservation du ${fr(f.get("arrivee"))} au ${fr(f.get("depart"))}`;
+      if (!C.contact.email) { alert("L'adresse e-mail de réservation n'est pas encore configurée."); return; }
+      window.location.href = `mailto:${C.contact.email}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
+    });
+
+    imgs = [...document.querySelectorAll(".galerie img")];
+    imgs.forEach((im, i) => im.parentElement.addEventListener("click", () => { montrer(i); lb.classList.add("ouverte"); }));
+
+    document.querySelectorAll(".reveal").forEach(el => {
+      if (APERCU || !obs) el.classList.add("vu"); else obs.observe(el);
+    });
+  }
+
+  function afficher(C) {
+    const y = window.scrollY;
+    document.getElementById("site").innerHTML = construire(C);
+    brancher(C);
+    if (APERCU) window.scrollTo(0, y);
+  }
+
+  afficher(window.SITE_CONTENT);
+
+  // ---------- Aperçu en direct depuis le panneau d'administration ----------
+  if (APERCU) {
+    document.documentElement.style.scrollBehavior = "auto";
+    window.addEventListener("message", e => {
+      const m = e.data || {};
+      if (m.type === "contenu") afficher(m.contenu);
+      if (m.type === "aller") {
+        const cible = document.getElementById(m.id);
+        if (cible) window.scrollTo(0, cible.offsetTop - (m.id === "accueil" ? 0 : 60));
+      }
+    });
+    parent.postMessage({ type: "pret" }, "*");
+  }
+</script>
+</body>
+</html>

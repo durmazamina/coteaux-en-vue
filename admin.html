@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration · Les Coteaux en Vue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --or: #bb9a5a; --or-fonce: #9c7d40; --brun: #3d2b1f; --creme: #f5efe6; --vert: #5c7a5a; --rose: #e8c9b8;
+    --fond: #faf7f2; --bord: rgba(61,43,31,.14); --doux: #7a6a5d; --rouge: #a8483a;
+    --serif: "Cormorant Garamond", Georgia, serif; --sans: "Jost", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); font-weight: 400; color: var(--brun); background: var(--fond); font-size: 15px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+  button { font-family: inherit; font-size: inherit; cursor: pointer; }
+
+  /* Barre du haut */
+  .barre { display: flex; align-items: center; gap: 14px; padding: 0 20px; height: 62px; background: var(--brun); color: var(--creme); flex-shrink: 0; }
+  .barre h1 { font-family: var(--serif); font-weight: 500; font-size: 1.4rem; white-space: nowrap; }
+  .barre h1 span { color: var(--or); font-style: italic; }
+  .etat { font-size: .85rem; color: rgba(245,239,230,.7); margin-left: 8px; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .etat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--vert); }
+  .etat.modifie::before { background: var(--or); }
+  .barre .espace { flex: 1; }
+  .b { padding: 10px 18px; border: 1px solid transparent; background: transparent; color: inherit; letter-spacing: .06em; font-size: .85rem; white-space: nowrap; }
+  .b-or { background: var(--or); color: #fff; font-weight: 500; }
+  .b-or:hover { background: var(--or-fonce); }
+  .b-or:disabled { opacity: .45; cursor: default; }
+  .b-ligne { border-color: rgba(245,239,230,.35); }
+  .b-ligne:hover { border-color: var(--creme); }
+
+  /* Mise en page */
+  .corps { flex: 1; display: grid; grid-template-columns: 210px minmax(360px, 520px) 1fr; min-height: 0; }
+  nav { background: #fff; border-right: 1px solid var(--bord); overflow-y: auto; padding: 14px 0; }
+  nav button { display: block; width: 100%; text-align: left; padding: 11px 22px; border: 0; background: none; color: var(--brun); border-left: 3px solid transparent; }
+  nav button:hover { background: var(--creme); }
+  nav button.actif { border-left-color: var(--or); background: var(--creme); font-weight: 500; }
+  .formulaire { overflow-y: auto; padding: 28px 30px 80px; border-right: 1px solid var(--bord); }
+  .formulaire h2 { font-family: var(--serif); font-weight: 500; font-size: 1.9rem; margin-bottom: 4px; }
+  .formulaire .intro { color: var(--doux); margin-bottom: 26px; font-size: .9rem; }
+  .apercu { display: flex; flex-direction: column; min-width: 0; background: #e9e3da; }
+  .apercu-barre { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; font-size: .8rem; color: var(--doux); letter-spacing: .08em; text-transform: uppercase; }
+  .apercu-barre .bascule button { border: 1px solid var(--bord); background: #fff; padding: 5px 12px; font-size: .78rem; color: var(--brun); }
+  .apercu-barre .bascule button.actif { background: var(--brun); color: var(--creme); border-color: var(--brun); }
+  .cadre { flex: 1; display: flex; justify-content: center; padding: 0 14px 14px; min-height: 0; }
+  iframe { border: 0; background: #fff; width: 100%; height: 100%; box-shadow: 0 4px 24px rgba(61,43,31,.12); transition: width .3s; }
+  .mobile iframe { width: 390px; }
+
+  /* Champs */
+  .champ { margin-bottom: 20px; }
+  .champ > label { display: block; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; margin-bottom: 6px; }
+  .aide { font-size: .8rem; color: var(--doux); margin-top: 5px; }
+  input[type=text], textarea, select { width: 100%; padding: 10px 12px; border: 1px solid var(--bord); background: #fff; font-family: var(--sans); font-size: .95rem; color: var(--brun); border-radius: 0; }
+  textarea { min-height: 84px; resize: vertical; line-height: 1.5; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--or); outline-offset: -1px; }
+  .photo-champ { display: flex; gap: 12px; align-items: center; }
+  .photo-champ img, .photo-champ .sans { width: 110px; height: 74px; object-fit: cover; background: var(--creme); flex-shrink: 0; border: 1px solid var(--bord); }
+  .photo-champ .sans { display: grid; place-items: center; font-size: .75rem; color: var(--doux); }
+  .photo-champ .nomfichier { font-size: .78rem; color: var(--doux); word-break: break-all; margin-top: 4px; }
+  .petit-b { padding: 7px 12px; border: 1px solid var(--bord); background: #fff; color: var(--brun); font-size: .82rem; }
+  .petit-b:hover { border-color: var(--or); }
+
+  /* Listes */
+  .liste { border: 1px solid var(--bord); background: #fff; }
+  .element { padding: 14px; border-bottom: 1px solid var(--bord); position: relative; }
+  .element.simple { display: flex; gap: 8px; align-items: center; padding: 8px 10px; }
+  .element.simple input { flex: 1; }
+  .element .outils { display: flex; gap: 2px; flex-shrink: 0; }
+  .element:not(.simple) .outils { position: absolute; top: 8px; right: 8px; }
+  .element .titre-el { font-size: .78rem; color: var(--doux); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+  .element .champ { margin-bottom: 12px; }
+  .element .champ:last-child { margin-bottom: 0; }
+  .outil { width: 28px; height: 28px; border: 0; background: none; color: var(--doux); font-size: 1rem; line-height: 1; }
+  .outil:hover { background: var(--creme); color: var(--brun); }
+  .outil.suppr:hover { color: var(--rouge); }
+  .outil:disabled { opacity: .25; cursor: default; background: none; }
+  .ajouter { width: 100%; padding: 10px; border: 0; background: var(--creme); color: var(--or-fonce); font-weight: 500; }
+  .ajouter:hover { background: var(--rose); color: var(--brun); }
+
+  /* Messages */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 20px); background: var(--brun); color: var(--creme); padding: 12px 22px; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; z-index: 10; max-width: 90vw; }
+  .toast.visible { opacity: 1; transform: translate(-50%, 0); }
+  .toast.erreur { background: var(--rouge); }
+  .bandeau { background: var(--rose); padding: 10px 20px; font-size: .88rem; display: none; }
+  .bandeau.visible { display: block; }
+
+  @media (max-width: 1100px) {
+    .corps { grid-template-columns: 190px 1fr; }
+    .apercu { display: none; }
+  }
+  @media (max-width: 700px) {
+    body { overflow: auto; height: auto; }
+    .barre { flex-wrap: wrap; height: auto; padding: 12px 16px; }
+    .etat { display: none; }
+    .corps { display: block; }
+    nav { display: flex; overflow-x: auto; padding: 0; border-right: 0; border-bottom: 1px solid var(--bord); }
+    nav button { white-space: nowrap; width: auto; border-left: 0; border-bottom: 3px solid transparent; padding: 12px 14px; }
+    nav button.actif { border-bottom-color: var(--or); }
+    .formulaire { padding: 22px 16px 60px; border: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="barre">
+  <h1>Les Coteaux <span>en Vue</span> · Admin</h1>
+  <div class="etat" id="etat">Tout est enregistré</div>
+  <div class="espace"></div>
+  <button class="b b-ligne" id="b-voir">Voir le site</button>
+  <button class="b b-or" id="b-enregistrer" disabled>Enregistrer</button>
+</div>
+<div class="bandeau" id="bandeau"></div>
+
+<div class="corps">
+  <nav id="nav"></nav>
+  <div class="formulaire" id="formulaire"></div>
+  <div class="apercu" id="apercu">
+    <div class="apercu-barre">
+      <span>Aperçu en direct</span>
+      <div class="bascule"><button data-v="ordi" class="actif">Ordinateur</button><button data-v="mobile">Mobile</button></div>
+    </div>
+    <div class="cadre"><iframe id="cadre" src="index.html?apercu" title="Aperçu du site"></iframe></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="choix-photo" accept="image/*" hidden>
+
+<script src="content.js"></script>
+<script>
+  // ===================== Description des champs modifiables =====================
+  const ICONES = [
+    ["piscine", "Piscine"], ["maison", "Maison / terrasse"], ["wifi", "Wi-Fi"], ["tv", "Télévision"],
+    ["linge", "Lave-linge"], ["cuisine", "Cuisine"], ["voiture", "Voiture / parking"], ["bebe", "Bébé"],
+    ["clim", "Climatisation"], ["cafe", "Café"], ["jardin", "Jardin / nature"], ["lit", "Lit"],
+    ["soleil", "Soleil"], ["etoile", "Étoile"]
+  ];
+  const T = (k, label, aide) => ({ k, label, type: "texte", aide });
+  const L = (k, label, aide) => ({ k, label, type: "long", aide });
+  const P = (k, label, aide) => ({ k, label, type: "photo", aide });
+  const entete = [T("surtitre", "Petit titre doré"), T("titre", "Titre", "Astuce : entoure un mot d'étoiles pour l'écrire en italique, ex. *piscine*")];
+
+  const SECTIONS = [
+    { id: "general", ancre: "accueil", nom: "Général", intro: "Nom du site, coordonnées et référencement Google.", champs: [
+      T("identite.nomDebut", "Nom du site (début)"),
+      T("identite.nomFin", "Nom du site (fin, en doré)"),
+      T("contact.email", "E-mail de réservation", "Les demandes du formulaire arrivent à cette adresse."),
+      T("contact.telephone", "Téléphone"),
+      L("contact.adresse", "Adresse"),
+      L("footer.texte", "Texte du bas de page"),
+      T("seo.titre", "Titre affiché dans Google et l'onglet"),
+      L("seo.description", "Description affichée dans Google")
+    ]},
+    { id: "hero", ancre: "accueil", nom: "Haut de page", intro: "La grande photo et la phrase d'accroche que l'on voit en arrivant.", champs: [
+      P("hero.image", "Grande photo de fond"),
+      T("hero.surtitre", "Petit texte au-dessus"),
+      T("hero.titre", "Phrase d'accroche", "Entoure un mot d'étoiles pour l'écrire en italique rose, ex. *piscine*"),
+      L("hero.texte", "Texte sous l'accroche"),
+      T("hero.bouton1", "Bouton principal (vers la réservation)"),
+      T("hero.bouton2", "Bouton secondaire (vers les logements)"),
+      { k: "hero.badges", label: "Petits atouts en bas", type: "liste", ajout: "Ajouter un atout" }
+    ]},
+    { id: "bienvenue", ancre: "bienvenue", nom: "Bienvenue", intro: "Le mot d'accueil sous la grande photo.", champs: [
+      ...entete.map(c => ({ ...c, k: "bienvenue." + c.k })),
+      { k: "bienvenue.paragraphes", label: "Paragraphes", type: "liste", long: true, ajout: "Ajouter un paragraphe" },
+      T("bienvenue.signature", "Signature"),
+      P("bienvenue.image", "Grande photo"),
+      P("bienvenue.imagePetite", "Petite photo superposée")
+    ]},
+    { id: "logements", ancre: "logements", nom: "Logements", intro: "Tes logements : textes, photos et caractéristiques.", champs: [
+      ...entete.map(c => ({ ...c, k: "logements." + c.k })),
+      L("logements.texte", "Texte d'introduction"),
+      { k: "logements.items", label: "Logements", type: "liste", ajout: "Ajouter un logement", nomElement: e => e.nom || "Logement",
+        nouveau: () => ({ nom: "Nouveau logement", surtitre: "", description: "", image: "", caracteristiques: [] }),
+        champs: [T("nom", "Nom du logement"), T("surtitre", "Petit texte doré"), L("description", "Description"), P("image", "Photo"),
+          { k: "caracteristiques", label: "Caractéristiques", type: "liste", ajout: "Ajouter une caractéristique" }] }
+    ]},
+    { id: "equipements", ancre: "equipements", nom: "Équipements", intro: "La grille des équipements sur fond brun.", champs: [
+      ...entete.map(c => ({ ...c, k: "equipements." + c.k })),
+      L("equipements.texte", "Texte d'introduction"),
+      { k: "equipements.items", label: "Équipements", type: "liste", ajout: "Ajouter un équipement", nomElement: e => e.titre || "Équipement",
+        nouveau: () => ({ icone: "etoile", titre: "", texte: "" }),
+        champs: [{ k: "icone", label: "Icône", type: "choix", options: ICONES }, T("titre", "Nom"), T("texte", "Détail")] }
+    ]},
+    { id: "galerie", ancre: "galerie", nom: "Galerie photos", intro: "La première photo s'affiche en grand. Utilise les flèches pour changer l'ordre.", champs: [
+      ...entete.map(c => ({ ...c, k: "galerie." + c.k })),
+      { k: "galerie.images", label: "Photos", type: "liste", ajout: "Ajouter une photo", nomElement: (e, i) => "Photo " + (i + 1),
+        nouveau: () => ({ src: "", alt: "" }),
+        champs: [P("src", "Photo"), T("alt", "Description courte", "Utile pour Google et les personnes malvoyantes.")] }
+    ]},
+    { id: "hotes", ancre: "hotes", nom: "Vos hôtes", intro: "Votre présentation.", champs: [
+      ...entete.map(c => ({ ...c, k: "hotes." + c.k })),
+      P("hotes.image", "Photo (affichée en rond)", "Idéalement une photo de vous deux."),
+      { k: "hotes.paragraphes", label: "Paragraphes", type: "liste", long: true, ajout: "Ajouter un paragraphe" },
+      T("hotes.signature", "Signature")
+    ]},
+    { id: "infos", ancre: "infos", nom: "Infos pratiques", intro: "Horaires et règles de la maison.", champs: [
+      ...entete.map(c => ({ ...c, k: "infos." + c.k })),
+      T("infos.arrivee.heure", "Heure d'arrivée"), T("infos.arrivee.note", "Précision sur l'arrivée"),
+      T("infos.depart.heure", "Heure de départ"), T("infos.depart.note", "Précision sur le départ"),
+      { k: "infos.regles", label: "Règles de la maison", type: "liste", ajout: "Ajouter une règle", nomElement: (e, i) => String(i + 1).padStart(2, "0") + " · " + (e.titre || ""),
+        nouveau: () => ({ titre: "", texte: "" }), champs: [T("titre", "Titre"), L("texte", "Texte")] }
+    ]},
+    { id: "alentours", ancre: "alentours", nom: "Alentours", intro: "Les lieux à visiter et leur temps de trajet.", champs: [
+      ...entete.map(c => ({ ...c, k: "alentours." + c.k })),
+      L("alentours.texte", "Texte d'introduction"),
+      { k: "alentours.lieux", label: "Lieux", type: "liste", ajout: "Ajouter un lieu", nomElement: e => e.nom || "Lieu",
+        nouveau: () => ({ nom: "", duree: "" }), champs: [T("nom", "Lieu"), T("duree", "Temps de trajet")] }
+    ]},
+    { id: "reservation", ancre: "reserver", nom: "Réservation", intro: "Le bloc de réservation en direct. Les demandes arrivent à l'e-mail indiqué dans « Général ».", champs: [
+      ...entete.map(c => ({ ...c, k: "reservation." + c.k })),
+      L("reservation.texte", "Texte"),
+      { k: "reservation.avantages", label: "Avantages de la réservation directe", type: "liste", ajout: "Ajouter un avantage" },
+      P("reservation.image", "Photo de fond")
+    ]}
+  ];
+
+  // ===================== État =====================
+  let contenu = JSON.parse(JSON.stringify(window.SITE_CONTENT));
+  let enregistre = JSON.stringify(contenu);
+  let dossier = null;       // accès au dossier site-web (File System Access API)
+  let sectionActive = SECTIONS[0];
+  const peutEcrire = "showDirectoryPicker" in window;
+
+  const $ = s => document.querySelector(s);
+  const cadre = $("#cadre");
+  const lire = (o, k) => k.split(".").reduce((a, p) => a == null ? a : a[p], o);
+  const ecrire = (o, k, v) => { const ps = k.split("."); const der = ps.pop(); ps.reduce((a, p) => a[p] ??= {}, o)[der] = v; };
+
+  function toast(msg, erreur) {
+    const t = $("#toast"); t.textContent = msg; t.className = "toast visible" + (erreur ? " erreur" : "");
+    clearTimeout(toast.t); toast.t = setTimeout(() => t.className = "toast", erreur ? 6000 : 2800);
+  }
+
+  let attente;
+  function modifie() {
+    const sale = JSON.stringify(contenu) !== enregistre;
+    $("#etat").textContent = sale ? "Modifications non enregistrées" : "Tout est enregistré";
+    $("#etat").classList.toggle("modifie", sale);
+    $("#b-enregistrer").disabled = !sale;
+    clearTimeout(attente);
+    attente = setTimeout(() => cadre.contentWindow.postMessage({ type: "contenu", contenu }, "*"), 120);
+  }
+
+  // ===================== Construction des formulaires =====================
+  const el = (tag, props = {}, ...enfants) => {
+    const e = Object.assign(document.createElement(tag), props);
+    enfants.flat().forEach(c => c != null && e.append(c));
+    return e;
+  };
+
+  function champ(def, obj) {
+    const val = lire(obj, def.k);
+    const bloc = el("div", { className: "champ" });
+    const id = "c" + Math.random().toString(36).slice(2, 9);
+    if (def.type !== "liste") bloc.append(el("label", { htmlFor: id, textContent: def.label }));
+
+    if (def.type === "texte" || def.type === "long") {
+      const inp = def.type === "long" ? el("textarea", { id }) : el("input", { type: "text", id });
+      inp.value = val ?? "";
+      inp.addEventListener("input", () => { ecrire(obj, def.k, inp.value); modifie(); });
+      bloc.append(inp);
+    } else if (def.type === "choix") {
+      const sel = el("select", { id }, def.options.map(([v, n]) => el("option", { value: v, textContent: n })));
+      sel.value = val;
+      sel.addEventListener("change", () => { ecrire(obj, def.k, sel.value); modifie(); });
+      bloc.append(sel);
+    } else if (def.type === "photo") {
+      bloc.append(champPhoto(def, obj));
+    } else if (def.type === "liste") {
+      bloc.append(el("label", { textContent: def.label }), champListe(def, obj));
+    }
+    if (def.aide) bloc.append(el("p", { className: "aide", textContent: def.aide }));
+    return bloc;
+  }
+
+  function champPhoto(def, obj) {
+    const zone = el("div", { className: "photo-champ" });
+    const dessiner = () => {
+      const v = lire(obj, def.k);
+      zone.replaceChildren(
+        v ? el("img", { src: v + "?v=" + Date.now(), alt: "" }) : el("div", { className: "sans", textContent: "Aucune photo" }),
+        el("div", {},
+          el("button", { type: "button", className: "petit-b", textContent: v ? "Changer la photo" : "Choisir une photo", onclick: () => choisirPhoto(nom => { ecrire(obj, def.k, nom); dessiner(); modifie(); }) }),
+          v ? el("div", { className: "nomfichier", textContent: v.replace("images/", "") }) : null)
+      );
+    };
+    dessiner();
+    return zone;
+  }
+
+  function champListe(def, obj) {
+    const boite = el("div", { className: "liste" });
+    const tableau = () => { if (!Array.isArray(lire(obj, def.k))) ecrire(obj, def.k, []); return lire(obj, def.k); };
+    const dessiner = () => {
+      const arr = tableau();
+      boite.replaceChildren();
+      arr.forEach((item, i) => {
+        const outils = el("div", { className: "outils" },
+          el("button", { type: "button", className: "outil", title: "Monter", textContent: "↑", disabled: i === 0, onclick: () => { [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; dessiner(); modifie(); } }),
+          el("button", { type: "button", className: "outil", title: "Descendre", textContent: "↓", disabled: i === arr.length - 1, onclick: () => { [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]]; dessiner(); modifie(); } }),
+          el("button", { type: "button", className: "outil suppr", title: "Supprimer", textContent: "✕", onclick: () => {
+            if (def.champs && !confirm("Supprimer « " + def.nomElement(item, i) + " » ?")) return;
+            arr.splice(i, 1); dessiner(); modifie();
+          } })
+        );
+        if (def.champs) {
+          const ligne = el("div", { className: "element" }, outils, el("div", { className: "titre-el", textContent: def.nomElement(item, i) }));
+          def.champs.forEach(c => ligne.append(champ(c, item)));
+          boite.append(ligne);
+        } else {
+          const inp = def.long ? el("textarea") : el("input", { type: "text" });
+          inp.value = item;
+          inp.addEventListener("input", () => { arr[i] = inp.value; modifie(); });
+          boite.append(el("div", { className: "element simple" }, inp, outils));
+        }
+      });
+      boite.append(el("button", { type: "button", className: "ajouter", textContent: "+ " + def.ajout, onclick: () => {
+        arr.push(def.nouveau ? def.nouveau() : ""); dessiner(); modifie();
+        const champs = boite.querySelectorAll("input, textarea"); champs[champs.length - 1]?.focus();
+      } }));
+    };
+    dessiner();
+    return boite;
+  }
+
+  function afficherSection(s) {
+    sectionActive = s;
+    document.querySelectorAll("nav button").forEach(b => b.classList.toggle("actif", b.dataset.id === s.id));
+    const f = $("#formulaire");
+    f.replaceChildren(el("h2", { textContent: s.nom }), el("p", { className: "intro", textContent: s.intro }), ...s.champs.map(c => champ(c, contenu)));
+    f.scrollTop = 0;
+    cadre.contentWindow.postMessage({ type: "aller", id: s.ancre }, "*");
+  }
+
+  SECTIONS.forEach(s => {
+    const b = el("button", { textContent: s.nom, onclick: () => afficherSection(s) });
+    b.dataset.id = s.id;
+    $("#nav").append(b);
+  });
+
+  // ===================== Accès au dossier du site =====================
+  const BASE = indexedDB.open("coteaux-admin", 1);
+  BASE.onupgradeneeded = () => BASE.result.createObjectStore("cles");
+  const memoire = (mode, fn) => new Promise((ok, ko) => {
+    try { const tx = BASE.result.transaction("cles", mode); const r = fn(tx.objectStore("cles")); tx.oncomplete = () => ok(r && r.result); tx.onerror = ko; }
+    catch (e) { ko(e); }
+  });
+  BASE.onsuccess = async () => { try { dossier = await memoire("readonly", s => s.get("dossier")) || null; } catch { } };
+
+  async function obtenirDossier() {
+    if (!peutEcrire) {
+      toast("Pour enregistrer, ouvre cette page avec Google Chrome ou Microsoft Edge.", true);
+      return null;
+    }
+    if (dossier) {
+      const perm = await dossier.requestPermission({ mode: "readwrite" });
+      if (perm === "granted") return dossier;
+    }
+    alert("Pour enregistrer, sélectionne le dossier « site-web » (celui qui contient admin.html), puis autorise la modification.\n\nTu n'auras à le faire qu'une fois.");
+    try {
+      const d = await window.showDirectoryPicker({ id: "site-web", mode: "readwrite" });
+      try { await d.getFileHandle("content.js"); }
+      catch { toast("Ce dossier ne contient pas content.js. Choisis bien le dossier « site-web ».", true); return null; }
+      dossier = d;
+      try { await memoire("readwrite", s => s.put(d, "dossier")); } catch { }
+      return d;
+    } catch { return null; } // annulé
+  }
+
+  async function enregistrer() {
+    const d = await obtenirDossier();
+    if (!d) return;
+    try {
+      const fichier = await (await d.getFileHandle("content.js")).createWritable();
+      await fichier.write("window.SITE_CONTENT = " + JSON.stringify(contenu, null, 2) + ";\n");
+      await fichier.close();
+      enregistre = JSON.stringify(contenu);
+      modifie();
+      toast("Enregistré ✓ Le site est à jour.");
+    } catch (e) {
+      toast("L'enregistrement a échoué : " + e.message, true);
+    }
+  }
+
+  // ===================== Photos =====================
+  let rappelPhoto = null;
+  function choisirPhoto(rappel) { rappelPhoto = rappel; $("#choix-photo").value = ""; $("#choix-photo").click(); }
+
+  $("#choix-photo").addEventListener("change", async e => {
+    const f = e.target.files[0];
+    if (!f || !rappelPhoto) return;
+    const d = await obtenirDossier();
+    if (!d) return;
+    try {
+      const imgs = await d.getDirectoryHandle("images", { create: true });
+      const ext = (f.name.match(/\.[a-z0-9]+$/i) || [".jpg"])[0].toLowerCase();
+      const base = f.name.replace(/\.[^.]+$/, "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "photo";
+      let nom = base + ext, n = 1;
+      // Même nom et même taille : c'est déjà la même photo, on la réutilise
+      while (true) {
+        try {
+          const exist = await (await imgs.getFileHandle(nom)).getFile();
+          if (exist.size === f.size) break;
+          nom = `${base}-${++n}${ext}`;
+        } catch {
+          const w = await (await imgs.getFileHandle(nom, { create: true })).createWritable();
+          await w.write(f); await w.close();
+          break;
+        }
+      }
+      rappelPhoto("images/" + nom);
+      toast("Photo ajoutée. Pense à enregistrer.");
+    } catch (err) {
+      toast("Impossible d'ajouter la photo : " + err.message, true);
+    }
+  });
+
+  // ===================== Barre et aperçu =====================
+  $("#b-enregistrer").addEventListener("click", enregistrer);
+  $("#b-voir").addEventListener("click", () => window.open("index.html", "_blank"));
+  document.querySelectorAll(".bascule button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".bascule button").forEach(x => x.classList.toggle("actif", x === b));
+    $(".cadre").classList.toggle("mobile", b.dataset.v === "mobile");
+  }));
+  window.addEventListener("message", e => {
+    if (e.data && e.data.type === "pret") cadre.contentWindow.postMessage({ type: "contenu", contenu }, "*");
+  });
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); if (!$("#b-enregistrer").disabled) enregistrer(); }
+  });
+  window.addEventListener("beforeunload", e => {
+    if (JSON.stringify(contenu) !== enregistre) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  if (!peutEcrire) {
+    const b = $("#bandeau");
+    b.textContent = "Ce navigateur ne permet pas d'enregistrer. Ouvre admin.html avec Google Chrome ou Microsoft Edge.";
+    b.classList.add("visible");
+  }
+
+  afficherSection(SECTIONS[0]);
+</script>
+</body>
+</html>
