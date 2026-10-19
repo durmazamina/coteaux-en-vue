@@ -171,7 +171,7 @@ window.SITE_CONTENT = {
       },
       {
         "src": "images/dsc-6201-hdr.jpg",
-        "alt": "La maison et la piscine"
+        "alt": "piscine et jardin"
       }
     ]
   },
