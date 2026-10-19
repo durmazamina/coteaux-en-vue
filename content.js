@@ -118,6 +118,16 @@ window.SITE_CONTENT = {
         "icone": "bebe",
         "titre": "Accueil bébé",
         "texte": "Lit, chaise haute et jeux sur demande"
+      },
+      {
+        "icone": "etoile",
+        "titre": "Clim",
+        "texte": "Clim reversible"
+      },
+      {
+        "icone": "cafe",
+        "titre": "Nespresso",
+        "texte": "quelques capsules offert"
       }
     ]
   },
