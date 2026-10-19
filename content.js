@@ -55,7 +55,8 @@ window.SITE_CONTENT = {
           "Salle de bain de 15 m²",
           "Terrasse privée ~25 m²",
           "Lit bébé sur demande",
-          "Cuisine équipée"
+          "Cuisine équipée",
+          "T2 de 50m2"
         ]
       },
       {
@@ -67,7 +68,8 @@ window.SITE_CONTENT = {
           "Terrasse privée ~25 m²",
           "Lit bébé sur demande",
           "Cuisine équipée",
-          "Studio 50m2"
+          "Studio 50m2",
+          "Canapé convertible"
         ]
       }
     ]
