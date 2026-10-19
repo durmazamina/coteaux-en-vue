@@ -1,38 +1,39 @@
 window.SITE_CONTENT = {
   "identite": {
-    "nomDebut": "Coteaux",
-    "nomFin": "en Vue"
+    "nomDebut": "",
+    "nomFin": ""
   },
   "seo": {
-    "titre": "Logement avec piscine près de Toulouse · Coteaux en Vue",
-    "description": "Logements indépendants à 10 min de Toulouse : vue sur les coteaux, piscine, terrasse privée, parking gratuit et Wi-Fi fibre. Vacances, étape ou déplacement pro."
+    "titre": "Les Coteaux en Vue · Location avec piscine près de Toulouse",
+    "description": "Deux logements en rez-de-jardin avec piscine et terrasse privée à Aureville, sur les coteaux toulousains, à moins de 10 minutes de Toulouse. Réservez en direct auprès d'Amina"
   },
   "contact": {
     "email": "coteauxenvue@outlook.com",
-    "telephone": "+33 7 88 86 75 30",
+    "telephone": "0033788867530",
     "adresse": "31320 Aureville"
   },
   "hero": {
-    "surtitre": "Coteaux toulousains · Sud de Toulouse",
+    "surtitre": "Coteaux toulousains · Parking gratuit · À 10 min de Toulouse",
     "titre": "Toulouse à 10 minutes, le *calme* en plus.",
     "texte": "Vacances, escapade, étape sur la route ou déplacement pro : deux logements indépendants avec terrasse privée, piscine et parking gratuit, à 10 min de Toulouse et 25 min du centre-ville.",
     "image": "images/05-piscine-jardin.jpg",
     "bouton1": "Vérifier les disponibilités",
     "bouton2": "Découvrir les logements",
     "badges": [
-      "Vue sur les coteaux",
+      "Toulouse à 10 min",
       "Parking gratuit",
-      "Wi-Fi fibre",
-      "Piscine"
+      "Piscine",
+      "Terrasse privée"
     ]
   },
   "bienvenue": {
     "surtitre": "Bienvenue",
-    "titre": "Une vue sur les coteaux, et le temps qui *ralentit*.",
+    "titre": "Faites comme chez vous",
     "paragraphes": [
       "Le café du matin face aux coteaux. Un plongeon avec la campagne à perte de vue. Le coucher de soleil depuis votre terrasse. Et Toulouse à seulement 10 minutes.",
-      "Pourquoi « Coteaux en Vue » ? Parce que c'est la première chose qui nous a séduits ici : les coteaux à perte de vue. Nous vivons à l'étage, et nous avons pensé le rez-de-jardin pour que vous en profitiez aussi : deux logements indépendants, avec terrasse privée, ouverts sur le jardin et le paysage.",
-      "Vacances, escapade, étape sur la route ou déplacement pro : vous trouverez ici le calme, le confort, et des hôtes juste au-dessus si besoin."
+      "Pourquoi « Les Coteaux en Vue » ? Parce que c'est la première chose qui nous a séduits ici : les coteaux à perte de vue. Nous vivons à l'étage, et nous avons pensé le rez-de-jardin pour que vous en profitiez aussi : deux logements indépendants, avec terrasse privée, ouverts sur le jardin et le paysage.",
+      "Vacances, escapade, étape sur la route ou déplacement pro : vous trouverez ici le calme, le confort, et des hôtes juste au-dessus si besoin.",
+      "Invité à un mariage, un anniversaire ou un séminaire à la Granja del Castel ? La salle est à 10 minutes à pied. Profitez de la soirée jusqu'au bout : votre lit vous attend juste à côté."
     ],
     "signature": "Amina",
     "image": "images/01-salon-sejour.jpg",
@@ -40,8 +41,8 @@ window.SITE_CONTENT = {
   },
   "logements": {
     "surtitre": "Nos logements",
-    "titre": "Deux logements, un même art de recevoir",
-    "texte": "Un appartement T2 et un grand studio, indépendants et chacun avec sa terrasse privée, ouverts sur le jardin, la piscine et les coteaux.",
+    "titre": "Deux appartements, un même art de recevoir",
+    "texte": "Chaque logement dispose d'une chambre séparée, d'un salon lumineux, d'une grande salle de bain et de sa propre terrasse, ouverte sur le jardin et la piscine.",
     "items": [
       {
         "nom": "Coteaux en Vue",
@@ -49,28 +50,26 @@ window.SITE_CONTENT = {
         "description": "Un cocon chaleureux aux tons doux, une cuisine toute équipée et une terrasse privée d'environ 25 m², idéale pour un café au soleil.",
         "image": "images/03-sejour-salle-a-manger.jpg",
         "caracteristiques": [
-          "T2 de 50 m²",
           "1 chambre séparée",
           "Canapé convertible",
           "Salle de bain de 15 m²",
           "Terrasse privée ~25 m²",
+          "Lit bébé sur demande",
           "Cuisine équipée",
-          "Lit bébé sur demande"
+          "T2 de 50m2"
         ]
       },
       {
         "nom": "Coteaux en Vue Studio",
         "surtitre": "Rez-de-jardin",
-        "description": "Un grand studio lumineux : cuisine ouverte sur le salon, coin nuit séparé par des rideaux avec un vrai bureau, et une terrasse privée de 25 m² à deux pas de la piscine.",
+        "description": "Le même confort, côté jardin : une chambre paisible, un salon ouvert et une grande salle de bain à double vasque pour se détendre après la piscine.",
         "image": "images/dsc-6276-hdr.jpg",
         "caracteristiques": [
-          "Studio de 50 m²",
-          "Coin nuit séparé par des rideaux",
-          "Bureau pour travailler",
-          "Canapé convertible",
           "Terrasse privée ~25 m²",
+          "Lit bébé sur demande",
           "Cuisine équipée",
-          "Lit bébé sur demande"
+          "Studio 50m2",
+          "Canapé convertible"
         ]
       }
     ]
@@ -80,11 +79,6 @@ window.SITE_CONTENT = {
     "titre": "Ce qui vous attend sur place",
     "texte": "Le linge est fourni et les lits sont faits à votre arrivée. Vous n'avez qu'à poser vos valises.",
     "items": [
-      {
-        "icone": "jardin",
-        "titre": "Vue sur les coteaux",
-        "texte": "Depuis la terrasse, le jardin et la piscine"
-      },
       {
         "icone": "piscine",
         "titre": "Piscine",
@@ -97,8 +91,8 @@ window.SITE_CONTENT = {
       },
       {
         "icone": "wifi",
-        "titre": "Wi-Fi fibre",
-        "texte": "Idéal pour le télétravail et les déplacements pro"
+        "titre": "Wi-Fi",
+        "texte": "Fibre, idéal même en télétravail"
       },
       {
         "icone": "tv",
@@ -130,33 +124,54 @@ window.SITE_CONTENT = {
   "galerie": {
     "surtitre": "Galerie",
     "titre": "Un aperçu de votre séjour",
-    "albums": [
+    "images": [
       {
-        "nom": "Coteaux en Vue",
-        "images": [
-          { "src": "images/03-sejour-salle-a-manger.jpg", "alt": "Le séjour et le coin repas" },
-          { "src": "images/01-salon-sejour.jpg", "alt": "Le salon" },
-          { "src": "images/06-chambre.jpg", "alt": "La chambre" },
-          { "src": "images/07-salle-de-bain.jpg", "alt": "La salle de bain" },
-          { "src": "images/04-detail-deco.jpg", "alt": "Détail de décoration" }
-        ]
+        "src": "images/02-piscine-maison.jpg",
+        "alt": "La maison et la piscine"
       },
       {
-        "nom": "Coteaux en Vue Studio",
-        "images": [
-          { "src": "images/dsc-6276-hdr.jpg", "alt": "Le studio : cuisine, coin repas et salon ouverts sur la terrasse" },
-          { "src": "images/dsc-6249-hdr.jpg", "alt": "Le coin nuit avec bureau, séparé par des rideaux" },
-          { "src": "images/dsc-6270-hdr.jpg", "alt": "La cuisine du studio" },
-          { "src": "images/dsc-6243-hdr.jpg", "alt": "La terrasse privée de 25 m²" },
-          { "src": "images/dsc-6267.jpg", "alt": "Les cadres au-dessus de la tête de lit" }
-        ]
+        "src": "images/01-salon-sejour.jpg",
+        "alt": "Le salon"
       },
       {
-        "nom": "Piscine & jardin",
-        "images": [
-          { "src": "images/05-piscine-jardin.jpg", "alt": "La piscine et le jardin" },
-          { "src": "images/02-piscine-maison.jpg", "alt": "La maison et la piscine" }
-        ]
+        "src": "images/06-chambre.jpg",
+        "alt": "La chambre"
+      },
+      {
+        "src": "images/07-salle-de-bain.jpg",
+        "alt": "La salle de bain"
+      },
+      {
+        "src": "images/04-detail-deco.jpg",
+        "alt": "Détail de décoration"
+      },
+      {
+        "src": "images/05-piscine-jardin.jpg",
+        "alt": "La piscine et le jardin"
+      },
+      {
+        "src": "images/03-sejour-salle-a-manger.jpg",
+        "alt": "Le séjour et le coin repas"
+      },
+      {
+        "src": "images/dsc-6270-hdr.jpg",
+        "alt": "cuisine coteaux en vue Studio"
+      },
+      {
+        "src": "images/dsc-6249-hdr.jpg",
+        "alt": "Chambre Studio séparé avec Rideaux"
+      },
+      {
+        "src": "images/dsc-6243-hdr.jpg",
+        "alt": "Terrasse de Studio de 25 m2"
+      },
+      {
+        "src": "images/dsc-6267.jpg",
+        "alt": "tete de lit "
+      },
+      {
+        "src": "images/dsc-6201-hdr.jpg",
+        "alt": "La maison et la piscine"
       }
     ]
   },
@@ -168,7 +183,7 @@ window.SITE_CONTENT = {
       "Nous vivons sur place, à l'étage. Une question, un conseil pour une sortie, un besoin de serviettes en plus ? Nous ne sommes jamais loin, toujours avec discrétion."
     ],
     "signature": "À très bientôt chez nous",
-    "image": "images/02-piscine-maison.jpg"
+    "image": "images/07-salle-de-bain.jpg"
   },
   "infos": {
     "surtitre": "Infos pratiques",
@@ -211,12 +226,8 @@ window.SITE_CONTENT = {
   "alentours": {
     "surtitre": "À faire, à voir",
     "titre": "Toulouse et ses environs",
-    "texte": "Au calme de la campagne, à 10 minutes de Toulouse et 25 minutes de son centre-ville.",
+    "texte": "Au calme de la campagne, tout en restant proche de la Ville rose et de ses trésors.",
     "lieux": [
-      {
-        "nom": "Granja del Castel (salle de réception)",
-        "duree": "10 min à pied"
-      },
       {
         "nom": "Canal du Midi",
         "duree": "12 min"
@@ -231,7 +242,7 @@ window.SITE_CONTENT = {
       },
       {
         "nom": "Quartier des Carmes, Toulouse",
-        "duree": "25 min"
+        "duree": "20 min"
       },
       {
         "nom": "Place du Capitole",
@@ -258,7 +269,7 @@ window.SITE_CONTENT = {
   "reservation": {
     "surtitre": "Réservation",
     "titre": "Réservez en direct",
-    "texte": "Envoyez-nous vos dates : nous vous répondons rapidement avec la disponibilité et le tarif de votre séjour. Invité à un mariage ou un séminaire à la Granja del Castel ? La salle est à 10 minutes à pied : profitez de la soirée jusqu'au bout, votre lit vous attend juste à côté.",
+    "texte": "Envoyez-nous vos dates : nous vous répondons rapidement avec la disponibilité et le tarif de votre séjour.",
     "avantages": [
       "Sans frais de service de plateforme",
       "Un échange direct avec vos hôtes",
@@ -267,6 +278,6 @@ window.SITE_CONTENT = {
     "image": "images/02-piscine-maison.jpg"
   },
   "footer": {
-    "texte": "Votre parenthèse au calme, à 10 minutes de Toulouse. Réservez en direct, sans frais, et échangez directement avec nous."
+    "texte": "Deux logements en rez-de-jardin avec piscine, sur les coteaux au sud de Toulouse."
   }
 };
