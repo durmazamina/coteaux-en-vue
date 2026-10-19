@@ -121,7 +121,7 @@ window.SITE_CONTENT = {
       },
       {
         "icone": "etoile",
-        "titre": "Clim",
+        "titre": "climatisation",
         "texte": "Clim reversible"
       },
       {
