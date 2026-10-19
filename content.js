@@ -160,6 +160,14 @@ window.SITE_CONTENT = {
       {
         "src": "images/dsc-6249-hdr.jpg",
         "alt": "Chambre Studio séparé avec Rideaux"
+      },
+      {
+        "src": "images/dsc-6243-hdr.jpg",
+        "alt": "Terrasse de Studio de 25 m2"
+      },
+      {
+        "src": "images/dsc-6267.jpg",
+        "alt": "tete de lit "
       }
     ]
   },
