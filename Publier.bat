@@ -50,7 +50,7 @@ if errorlevel 1 (
 echo.
 echo   C'est publié !
 echo   Le site sera à jour d'ici 1 à 2 minutes :
-echo   https://durmazamina.github.io/coteaux-en-vue/
+echo   https://coteauxenvue.fr/
 
 :fin
 echo.

@@ -2,8 +2,8 @@
 
 Site web des Coteaux en Vue : deux logements en rez-de-jardin avec piscine à Aureville, près de Toulouse.
 
-- Site en ligne : https://durmazamina.github.io/coteaux-en-vue/
-- Panneau d'administration : https://durmazamina.github.io/coteaux-en-vue/admin.html
+- Site en ligne : https://coteauxenvue.fr/
+- Panneau d'administration : https://coteauxenvue.fr/admin.html
 
 ## Contenu du dossier
 
@@ -17,7 +17,7 @@ Site web des Coteaux en Vue : deux logements en rez-de-jardin avec piscine à Au
 
 ## Modifier le site depuis n'importe où (recommandé)
 
-1. Ouvrir le panneau : https://durmazamina.github.io/coteaux-en-vue/admin.html
+1. Ouvrir le panneau : https://coteauxenvue.fr/admin.html
 2. La première fois sur un appareil, coller sa clé GitHub (les étapes pour la créer sont expliquées dans le panneau).
 3. Modifier les textes et les photos, puis cliquer sur **Enregistrer** : le site en ligne se met à jour en 1 à 2 minutes.
 
