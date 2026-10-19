@@ -189,12 +189,12 @@ window.SITE_CONTENT = {
     "surtitre": "Infos pratiques",
     "titre": "Pour un séjour serein",
     "arrivee": {
-      "heure": "dès 15h",
-      "note": "Plus tôt ? Demandez-nous, selon disponibilités"
+      "heure": "dès 16h",
+      "note": "Plus tôt ? Demandez-nous, selon disponibilités pour 15 €"
     },
     "depart": {
-      "heure": "avant 11h",
-      "note": "Un départ plus tardif est parfois possible"
+      "heure": "avant 10h",
+      "note": "Un départ plus tardif est parfois possible avec 15 € en supplément"
     },
     "regles": [
       {
