@@ -1,7 +1,7 @@
 window.SITE_CONTENT = {
   "identite": {
-    "nomDebut": "",
-    "nomFin": ""
+    "nomDebut": "coteauxenvue.com",
+    "nomFin": "coteaux en vue"
   },
   "seo": {
     "titre": "Les Coteaux en Vue · Location avec piscine près de Toulouse",
