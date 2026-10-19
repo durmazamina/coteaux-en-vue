@@ -150,6 +150,10 @@ window.SITE_CONTENT = {
         "alt": "La piscine et le jardin"
       },
       {
+        "src": "images/dsc-6201-hdr.jpg",
+        "alt": "piscine et jardin"
+      },
+      {
         "src": "images/03-sejour-salle-a-manger.jpg",
         "alt": "Le séjour et le coin repas"
       },
@@ -168,10 +172,6 @@ window.SITE_CONTENT = {
       {
         "src": "images/dsc-6267.jpg",
         "alt": "tete de lit "
-      },
-      {
-        "src": "images/dsc-6201-hdr.jpg",
-        "alt": "piscine et jardin"
       }
     ]
   },
