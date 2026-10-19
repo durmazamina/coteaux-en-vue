@@ -88,6 +88,29 @@
   .bandeau { background: var(--rose); padding: 10px 20px; font-size: .88rem; display: none; }
   .bandeau.visible { display: block; }
 
+  /* Connexion */
+  .connexion { position: fixed; inset: 0; background: var(--fond); z-index: 20; overflow-y: auto; display: none; padding: 40px 16px; }
+  .connexion.visible { display: block; }
+  .carte { max-width: 520px; margin: 0 auto; background: #fff; border: 1px solid var(--bord); padding: 36px 34px; }
+  .carte h2 { font-family: var(--serif); font-weight: 500; font-size: 2rem; margin-bottom: 8px; }
+  .carte h2 span { color: var(--or); font-style: italic; }
+  .carte > p { color: var(--doux); margin-bottom: 20px; line-height: 1.6; }
+  .carte details { background: var(--creme); padding: 14px 18px; margin-bottom: 22px; }
+  .carte summary { cursor: pointer; font-weight: 500; color: var(--or-fonce); }
+  .carte ol { margin: 12px 0 4px 20px; line-height: 1.6; font-size: .92rem; }
+  .carte ol li { margin-bottom: 8px; }
+  .carte code { background: #fff; padding: 1px 6px; font-size: .88em; }
+  .carte a { color: var(--or-fonce); }
+  .carte > label:not(.coche) { display: block; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; margin-bottom: 6px; }
+  .carte input[type=password] { width: 100%; padding: 12px; border: 1px solid var(--bord); font-family: var(--sans); font-size: .95rem; margin-bottom: 12px; border-radius: 0; }
+  .carte input[type=password]:focus { outline: 2px solid var(--or); outline-offset: -1px; }
+  .carte .coche { display: flex; gap: 8px; align-items: center; font-size: .9rem; margin-bottom: 20px; cursor: pointer; }
+  .carte .b-or { width: 100%; padding: 13px; }
+  .carte .erreur-co { color: var(--rouge); font-size: .9rem; margin-top: 12px; min-height: 1.2em; }
+  .carte .autre { display: block; margin: 18px auto 0; background: none; border: 0; color: var(--doux); text-decoration: underline; font-size: .88rem; }
+  .mode { font-size: .8rem; color: rgba(245,239,230,.7); white-space: nowrap; }
+  .mode button { background: none; border: 0; color: var(--or); text-decoration: underline; margin-left: 6px; font-size: .8rem; }
+
   @media (max-width: 1100px) {
     .corps { grid-template-columns: 190px 1fr; }
     .apercu { display: none; }
@@ -110,6 +133,7 @@
   <h1>Les Coteaux <span>en Vue</span> · Admin</h1>
   <div class="etat" id="etat">Tout est enregistré</div>
   <div class="espace"></div>
+  <div class="mode" id="mode"></div>
   <button class="b b-ligne" id="b-voir">Voir le site</button>
   <button class="b b-or" id="b-enregistrer" disabled>Enregistrer</button>
 </div>
@@ -124,6 +148,31 @@
       <div class="bascule"><button data-v="ordi" class="actif">Ordinateur</button><button data-v="mobile">Mobile</button></div>
     </div>
     <div class="cadre"><iframe id="cadre" src="index.html?apercu" title="Aperçu du site"></iframe></div>
+  </div>
+</div>
+
+<div class="connexion" id="connexion">
+  <div class="carte">
+    <h2>Les Coteaux <span>en Vue</span></h2>
+    <p>Pour modifier ton site depuis n'importe où (ordinateur, téléphone, tablette), le panneau a besoin d'une <strong>clé GitHub</strong>. Tu ne la crées qu'une seule fois par appareil.</p>
+    <details>
+      <summary>Comment créer ma clé (2 minutes)</summary>
+      <ol>
+        <li>Ouvre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">cette page GitHub</a> (elle est en anglais, tu peux la traduire avec ton navigateur).</li>
+        <li><strong>Token name</strong> (nom) : écris <code>Panneau Coteaux en Vue</code>.</li>
+        <li><strong>Expiration</strong> : choisis la durée la plus longue proposée.</li>
+        <li><strong>Repository access</strong> (accès) : choisis <strong>Only select repositories</strong> (seulement certains dépôts), puis sélectionne <code>coteaux-en-vue</code>.</li>
+        <li><strong>Permissions</strong> : clique sur <strong>Add permissions</strong> (ajouter), choisis <strong>Contents</strong>, puis règle-le sur <strong>Read and write</strong> (lecture et écriture).</li>
+        <li>Clique sur <strong>Generate token</strong> (générer), puis copie la clé qui commence par <code>github_pat_</code>.</li>
+        <li>Colle-la ci-dessous. Ne la donne à personne d'autre.</li>
+      </ol>
+    </details>
+    <label for="jeton">Ma clé GitHub</label>
+    <input type="password" id="jeton" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+    <label class="coche"><input type="checkbox" id="souvenir" checked> Se souvenir de moi sur cet appareil</label>
+    <button class="b b-or" id="b-connexion">Se connecter</button>
+    <p class="erreur-co" id="erreur-co"></p>
+    <button class="autre" id="b-local" hidden>Ou travailler sur les fichiers de cet ordinateur (sans GitHub)</button>
   </div>
 </div>
 
@@ -219,12 +268,24 @@
     ]}
   ];
 
+  // ===================== Configuration =====================
+  const DEPOT = { proprietaire: "durmazamina", nom: "coteaux-en-vue", branche: "main" };
+  const SITE_EN_LIGNE = `https://${DEPOT.proprietaire}.github.io/${DEPOT.nom}/`;
+  const RAW = `https://raw.githubusercontent.com/${DEPOT.proprietaire}/${DEPOT.nom}/${DEPOT.branche}/`;
+  const CLE_JETON = "coteaux-github-jeton";
+
   // ===================== État =====================
-  let contenu = JSON.parse(JSON.stringify(window.SITE_CONTENT));
-  let enregistre = JSON.stringify(contenu);
+  let contenu = null;
+  let enregistre = "";
+  let mode = null;          // "github" (en ligne) ou "dossier" (fichiers de l'ordinateur)
   let dossier = null;       // accès au dossier site-web (File System Access API)
+  let jeton = "";
+  let depot = null;         // { commit, contenuSha, fichiers: Map(chemin -> taille) } au chargement
+  const enAttente = {};     // photos choisies mais pas encore envoyées : chemin -> base64
+  const apercuImages = {};  // chemin -> data URL, pour afficher les nouvelles photos tout de suite
   let sectionActive = SECTIONS[0];
   const peutEcrire = "showDirectoryPicker" in window;
+  const surOrdinateur = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
 
   const $ = s => document.querySelector(s);
   const cadre = $("#cadre");
@@ -236,14 +297,19 @@
     clearTimeout(toast.t); toast.t = setTimeout(() => t.className = "toast", erreur ? 6000 : 2800);
   }
 
+  const photosAEnvoyer = () => Object.keys(enAttente).filter(p => JSON.stringify(contenu).includes(JSON.stringify(p)));
+  const estSale = () => contenu && (JSON.stringify(contenu) !== enregistre || photosAEnvoyer().length > 0);
+  const srcVignette = v => apercuImages[v] || (mode === "github" && !/^(https?:|data:)/.test(v) ? RAW + v : v);
+
   let attente;
+  const envoyerApercu = () => cadre.contentWindow.postMessage({ type: "contenu", contenu, images: apercuImages, base: mode === "github" ? RAW : "" }, "*");
   function modifie() {
-    const sale = JSON.stringify(contenu) !== enregistre;
+    const sale = estSale();
     $("#etat").textContent = sale ? "Modifications non enregistrées" : "Tout est enregistré";
     $("#etat").classList.toggle("modifie", sale);
     $("#b-enregistrer").disabled = !sale;
     clearTimeout(attente);
-    attente = setTimeout(() => cadre.contentWindow.postMessage({ type: "contenu", contenu }, "*"), 120);
+    attente = setTimeout(envoyerApercu, 120);
   }
 
   // ===================== Construction des formulaires =====================
@@ -283,7 +349,7 @@
     const dessiner = () => {
       const v = lire(obj, def.k);
       zone.replaceChildren(
-        v ? el("img", { src: v + "?v=" + Date.now(), alt: "" }) : el("div", { className: "sans", textContent: "Aucune photo" }),
+        v ? el("img", { src: srcVignette(v), alt: "" }) : el("div", { className: "sans", textContent: "Aucune photo" }),
         el("div", {},
           el("button", { type: "button", className: "petit-b", textContent: v ? "Changer la photo" : "Choisir une photo", onclick: () => choisirPhoto(nom => { ecrire(obj, def.k, nom); dessiner(); modifie(); }) }),
           v ? el("div", { className: "nomfichier", textContent: v.replace("images/", "") }) : null)
@@ -343,11 +409,105 @@
     $("#nav").append(b);
   });
 
-  // ===================== Accès au dossier du site =====================
+  // ===================== Outils communs =====================
+  const versBase64 = octets => { let s = ""; for (let i = 0; i < octets.length; i += 0x8000) s += String.fromCharCode.apply(null, octets.subarray(i, i + 0x8000)); return btoa(s); };
+  const depuisBase64 = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g, "")), c => c.charCodeAt(0)));
+  const versFichierContenu = c => "window.SITE_CONTENT = " + JSON.stringify(c, null, 2) + ";\n";
+  const lireFichierContenu = t => JSON.parse(t.replace(/^\s*window\.SITE_CONTENT\s*=\s*/, "").replace(/;\s*$/, ""));
+  const nomPropre = n => n.replace(/\.[^.]+$/, "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "photo";
+
+  // Photos : redimensionnées (1920 px max) et converties en JPEG pour un site rapide
+  async function preparerPhoto(fichier) {
+    let image;
+    try { image = await createImageBitmap(fichier, { imageOrientation: "from-image" }); }
+    catch { throw new Error("ce format de photo n'est pas pris en charge (utilise une photo JPG ou PNG)"); }
+    const echelle = Math.min(1, 1920 / Math.max(image.width, image.height));
+    const toile = document.createElement("canvas");
+    toile.width = Math.round(image.width * echelle); toile.height = Math.round(image.height * echelle);
+    const ctx = toile.getContext("2d");
+    ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, toile.width, toile.height);
+    ctx.drawImage(image, 0, 0, toile.width, toile.height);
+    const blob = await new Promise(ok => toile.toBlob(ok, "image/jpeg", 0.85));
+    const octets = new Uint8Array(await blob.arrayBuffer());
+    return { blob, octets, dataUrl: "data:image/jpeg;base64," + versBase64(octets), nom: nomPropre(fichier.name) };
+  }
+
+  // ===================== Mode GitHub (en ligne) =====================
+  async function api(chemin, options = {}) {
+    const r = await fetch(`https://api.github.com/repos/${DEPOT.proprietaire}/${DEPOT.nom}${chemin}`, {
+      cache: "no-store", ...options,
+      headers: {
+        Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
+        ...(jeton ? { Authorization: "Bearer " + jeton } : {}),
+        ...(options.body ? { "Content-Type": "application/json" } : {})
+      }
+    });
+    if (!r.ok) { const e = new Error("GitHub a répondu " + r.status); e.status = r.status; throw e; }
+    return r.json();
+  }
+  const envoyerApi = (chemin, methode, donnees) => api(chemin, { method: methode, body: JSON.stringify(donnees) });
+
+  async function etatDepot() {
+    const ref = await api(`/git/ref/heads/${DEPOT.branche}`);
+    const commit = await api(`/git/commits/${ref.object.sha}`);
+    const arbre = await api(`/git/trees/${commit.tree.sha}?recursive=1`);
+    const fichiers = new Map(arbre.tree.filter(t => t.type === "blob").map(t => [t.path, t.size]));
+    const contenuSha = arbre.tree.find(t => t.path === "content.js").sha;
+    return { commit: ref.object.sha, arbre: commit.tree.sha, contenuSha, fichiers };
+  }
+
+  async function chargerDepuisGitHub() {
+    depot = await etatDepot();
+    const blob = await api(`/git/blobs/${depot.contenuSha}`);
+    return lireFichierContenu(depuisBase64(blob.content));
+  }
+
+  function messageErreurGitHub(e) {
+    if (e.status === 401) return "Ta clé GitHub n'est pas valide ou a expiré. Reconnecte-toi avec une nouvelle clé.";
+    if (e.status === 403 || e.status === 404) return "Ta clé n'a pas le droit de modifier le site. Vérifie qu'elle donne accès à « coteaux-en-vue » avec « Contents : Read and write ».";
+    if (e.status === 409 || e.status === 422) return "Le site vient d'être modifié ailleurs. Réessaie dans quelques secondes.";
+    return "Problème de connexion avec GitHub (" + (e.message || "erreur inconnue") + "). Vérifie ta connexion internet.";
+  }
+
+  async function enregistrerSurGitHub() {
+    const bouton = $("#b-enregistrer");
+    bouton.disabled = true; bouton.textContent = "Envoi…";
+    try {
+      const actuel = await etatDepot();
+      if (actuel.contenuSha !== depot.contenuSha &&
+          !confirm("Le site a été modifié ailleurs (par exemple depuis un autre appareil) depuis que tu as ouvert le panneau.\n\nOK : remplacer par tes modifications.\nAnnuler : ne rien envoyer (recharge ensuite la page pour récupérer la dernière version).")) {
+        return;
+      }
+      const elements = [];
+      for (const chemin of photosAEnvoyer()) {
+        const b = await envoyerApi("/git/blobs", "POST", { content: enAttente[chemin], encoding: "base64" });
+        elements.push({ path: chemin, mode: "100644", type: "blob", sha: b.sha });
+      }
+      const texte = await envoyerApi("/git/blobs", "POST", { content: versFichierContenu(contenu), encoding: "utf-8" });
+      elements.push({ path: "content.js", mode: "100644", type: "blob", sha: texte.sha });
+      const arbre = await envoyerApi("/git/trees", "POST", { base_tree: actuel.arbre, tree: elements });
+      const quand = new Date().toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
+      const commit = await envoyerApi("/git/commits", "POST", { message: `Mise à jour depuis le panneau admin (${quand})`, tree: arbre.sha, parents: [actuel.commit] });
+      await envoyerApi(`/git/refs/heads/${DEPOT.branche}`, "PATCH", { sha: commit.sha });
+
+      depot = { commit: commit.sha, arbre: arbre.sha, contenuSha: texte.sha, fichiers: actuel.fichiers };
+      elements.forEach(e => { if (e.path !== "content.js") { depot.fichiers.set(e.path, 1); delete enAttente[e.path]; } });
+      enregistre = JSON.stringify(contenu);
+      toast("Publié ✓ Ton site sera à jour dans 1 à 2 minutes.");
+    } catch (e) {
+      toast(messageErreurGitHub(e), true);
+      if (e.status === 401) deconnecter();
+    } finally {
+      bouton.textContent = "Enregistrer";
+      modifie();
+    }
+  }
+
+  // ===================== Mode dossier (fichiers de l'ordinateur) =====================
   const BASE = indexedDB.open("coteaux-admin", 1);
   BASE.onupgradeneeded = () => BASE.result.createObjectStore("cles");
-  const memoire = (mode, fn) => new Promise((ok, ko) => {
-    try { const tx = BASE.result.transaction("cles", mode); const r = fn(tx.objectStore("cles")); tx.oncomplete = () => ok(r && r.result); tx.onerror = ko; }
+  const memoire = (m, fn) => new Promise((ok, ko) => {
+    try { const tx = BASE.result.transaction("cles", m); const r = fn(tx.objectStore("cles")); tx.oncomplete = () => ok(r && r.result); tx.onerror = ko; }
     catch (e) { ko(e); }
   });
   BASE.onsuccess = async () => { try { dossier = await memoire("readonly", s => s.get("dossier")) || null; } catch { } };
@@ -372,20 +532,22 @@
     } catch { return null; } // annulé
   }
 
-  async function enregistrer() {
+  async function enregistrerDansDossier() {
     const d = await obtenirDossier();
     if (!d) return;
     try {
       const fichier = await (await d.getFileHandle("content.js")).createWritable();
-      await fichier.write("window.SITE_CONTENT = " + JSON.stringify(contenu, null, 2) + ";\n");
+      await fichier.write(versFichierContenu(contenu));
       await fichier.close();
       enregistre = JSON.stringify(contenu);
       modifie();
-      toast("Enregistré ✓ Le site est à jour.");
+      toast("Enregistré ✓ Double-clique sur Publier.bat pour mettre le site en ligne.");
     } catch (e) {
       toast("L'enregistrement a échoué : " + e.message, true);
     }
   }
+
+  const enregistrer = () => mode === "github" ? enregistrerSurGitHub() : enregistrerDansDossier();
 
   // ===================== Photos =====================
   let rappelPhoto = null;
@@ -394,56 +556,122 @@
   $("#choix-photo").addEventListener("change", async e => {
     const f = e.target.files[0];
     if (!f || !rappelPhoto) return;
-    const d = await obtenirDossier();
-    if (!d) return;
+    const rappel = rappelPhoto;
     try {
-      const imgs = await d.getDirectoryHandle("images", { create: true });
-      const ext = (f.name.match(/\.[a-z0-9]+$/i) || [".jpg"])[0].toLowerCase();
-      const base = f.name.replace(/\.[^.]+$/, "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "photo";
-      let nom = base + ext, n = 1;
-      // Même nom et même taille : c'est déjà la même photo, on la réutilise
-      while (true) {
-        try {
-          const exist = await (await imgs.getFileHandle(nom)).getFile();
-          if (exist.size === f.size) break;
-          nom = `${base}-${++n}${ext}`;
-        } catch {
-          const w = await (await imgs.getFileHandle(nom, { create: true })).createWritable();
-          await w.write(f); await w.close();
-          break;
+      toast("Préparation de la photo…");
+      const photo = await preparerPhoto(f);
+      let chemin;
+      if (mode === "github") {
+        // Même nom et même taille : c'est déjà la même photo, on la réutilise
+        let n = 1; chemin = `images/${photo.nom}.jpg`;
+        while ((depot.fichiers.has(chemin) && depot.fichiers.get(chemin) !== photo.octets.length) || (enAttente[chemin] && enAttente[chemin] !== versBase64(photo.octets))) {
+          chemin = `images/${photo.nom}-${++n}.jpg`;
         }
+        if (!depot.fichiers.has(chemin)) enAttente[chemin] = versBase64(photo.octets);
+      } else {
+        const d = await obtenirDossier();
+        if (!d) return;
+        const imgs = await d.getDirectoryHandle("images", { create: true });
+        let n = 1, nom = photo.nom + ".jpg";
+        while (true) {
+          try {
+            const exist = await (await imgs.getFileHandle(nom)).getFile();
+            if (exist.size === photo.octets.length) break;
+            nom = `${photo.nom}-${++n}.jpg`;
+          } catch {
+            const w = await (await imgs.getFileHandle(nom, { create: true })).createWritable();
+            await w.write(photo.blob); await w.close();
+            break;
+          }
+        }
+        chemin = "images/" + nom;
       }
-      rappelPhoto("images/" + nom);
+      apercuImages[chemin] = photo.dataUrl;
+      rappel(chemin);
       toast("Photo ajoutée. Pense à enregistrer.");
     } catch (err) {
       toast("Impossible d'ajouter la photo : " + err.message, true);
     }
   });
 
+  // ===================== Connexion et démarrage =====================
+  function demarrer(c, m) {
+    contenu = c; mode = m; enregistre = JSON.stringify(c);
+    $("#connexion").classList.remove("visible");
+    $("#mode").replaceChildren(
+      m === "github" ? "Connectée à GitHub" : "Fichiers de l'ordinateur",
+      el("button", { textContent: m === "github" ? "Se déconnecter" : "Changer", onclick: () => {
+        if (estSale() && !confirm("Tes modifications non enregistrées seront perdues. Continuer ?")) return;
+        enregistre = JSON.stringify(contenu); Object.keys(enAttente).forEach(k => delete enAttente[k]);
+        deconnecter();
+      } }));
+    if (m === "dossier" && !peutEcrire) {
+      const b = $("#bandeau");
+      b.textContent = "Ce navigateur ne permet pas d'enregistrer. Ouvre admin.html avec Google Chrome ou Microsoft Edge.";
+      b.classList.add("visible");
+    }
+    afficherSection(sectionActive);
+    modifie();
+  }
+
+  function deconnecter() {
+    jeton = "";
+    try { localStorage.removeItem(CLE_JETON); sessionStorage.removeItem(CLE_JETON); } catch { }
+    $("#jeton").value = "";
+    $("#connexion").classList.add("visible");
+  }
+
+  async function connecter(cle, souvenir) {
+    jeton = cle.trim();
+    $("#erreur-co").textContent = "";
+    $("#b-connexion").disabled = true; $("#b-connexion").textContent = "Connexion…";
+    try {
+      await api("");  // vérifie que la clé fonctionne
+      const c = await chargerDepuisGitHub();
+      try { (souvenir ? localStorage : sessionStorage).setItem(CLE_JETON, jeton); } catch { }
+      demarrer(c, "github");
+    } catch (e) {
+      jeton = "";
+      try { localStorage.removeItem(CLE_JETON); sessionStorage.removeItem(CLE_JETON); } catch { }
+      $("#erreur-co").textContent = e.status === 401 ? "Cette clé n'est pas valide. Vérifie que tu l'as copiée en entier." : messageErreurGitHub(e);
+      $("#connexion").classList.add("visible");
+    } finally {
+      $("#b-connexion").disabled = false; $("#b-connexion").textContent = "Se connecter";
+    }
+  }
+
+  $("#b-connexion").addEventListener("click", () => {
+    const v = $("#jeton").value.trim();
+    if (!v) { $("#erreur-co").textContent = "Colle d'abord ta clé GitHub."; return; }
+    connecter(v, $("#souvenir").checked);
+  });
+  $("#jeton").addEventListener("keydown", e => { if (e.key === "Enter") $("#b-connexion").click(); });
+  if (surOrdinateur && window.SITE_CONTENT) {
+    $("#b-local").hidden = false;
+    $("#b-local").addEventListener("click", () => demarrer(JSON.parse(JSON.stringify(window.SITE_CONTENT)), "dossier"));
+  }
+
   // ===================== Barre et aperçu =====================
   $("#b-enregistrer").addEventListener("click", enregistrer);
-  $("#b-voir").addEventListener("click", () => window.open("index.html", "_blank"));
+  $("#b-voir").addEventListener("click", () => window.open(mode === "github" || !surOrdinateur ? SITE_EN_LIGNE : "index.html", "_blank"));
   document.querySelectorAll(".bascule button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll(".bascule button").forEach(x => x.classList.toggle("actif", x === b));
     $(".cadre").classList.toggle("mobile", b.dataset.v === "mobile");
   }));
   window.addEventListener("message", e => {
-    if (e.data && e.data.type === "pret") cadre.contentWindow.postMessage({ type: "contenu", contenu }, "*");
+    if (e.data && e.data.type === "pret" && contenu) { envoyerApercu(); cadre.contentWindow.postMessage({ type: "aller", id: sectionActive.ancre }, "*"); }
   });
   document.addEventListener("keydown", e => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); if (!$("#b-enregistrer").disabled) enregistrer(); }
   });
   window.addEventListener("beforeunload", e => {
-    if (JSON.stringify(contenu) !== enregistre) { e.preventDefault(); e.returnValue = ""; }
+    if (estSale()) { e.preventDefault(); e.returnValue = ""; }
   });
 
-  if (!peutEcrire) {
-    const b = $("#bandeau");
-    b.textContent = "Ce navigateur ne permet pas d'enregistrer. Ouvre admin.html avec Google Chrome ou Microsoft Edge.";
-    b.classList.add("visible");
-  }
-
-  afficherSection(SECTIONS[0]);
+  let jetonMemorise = "", memoriseLongtemps = false;
+  try { memoriseLongtemps = !!localStorage.getItem(CLE_JETON); jetonMemorise = localStorage.getItem(CLE_JETON) || sessionStorage.getItem(CLE_JETON) || ""; } catch { }
+  if (jetonMemorise) connecter(jetonMemorise, memoriseLongtemps);
+  else $("#connexion").classList.add("visible");
 </script>
 </body>
 </html>

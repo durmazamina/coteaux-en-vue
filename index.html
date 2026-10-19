@@ -250,7 +250,10 @@
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const emph = s => esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>");
   const paras = arr => (arr || []).map(p => `<p>${esc(p)}</p>`).join("");
-  const img = (src, alt, cls = "") => src ? `<img${cls ? ` class="${cls}"` : ""} src="${esc(src)}" alt="${esc(alt)}">` : "";
+  // En aperçu (panneau admin) : nouvelles photos pas encore en ligne, et adresse des photos sur GitHub
+  let APERCU_IMAGES = {}, IMAGES_BASE = "";
+  const srcImg = s => APERCU_IMAGES[s] || (IMAGES_BASE && !/^(https?:|data:)/.test(s) ? IMAGES_BASE + s : s);
+  const img = (src, alt, cls = "") => src ? `<img${cls ? ` class="${cls}"` : ""} src="${esc(srcImg(src))}" alt="${esc(alt)}">` : "";
   const entete = (s, extra = "") => `<span class="surtitre">${esc(s.surtitre)}</span><h2>${emph(s.titre)}</h2>${extra}`;
 
   function construire(C) {
@@ -508,7 +511,10 @@
     document.documentElement.style.scrollBehavior = "auto";
     window.addEventListener("message", e => {
       const m = e.data || {};
-      if (m.type === "contenu") afficher(m.contenu);
+      if (m.type === "contenu") {
+        APERCU_IMAGES = m.images || {}; IMAGES_BASE = m.base || "";
+        afficher(m.contenu);
+      }
       if (m.type === "aller") {
         const cible = document.getElementById(m.id);
         if (cible) window.scrollTo(0, cible.offsetTop - (m.id === "accueil" ? 0 : 60));
