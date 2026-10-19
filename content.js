@@ -62,7 +62,7 @@ window.SITE_CONTENT = {
         "nom": "Coteaux en Vue Duo",
         "surtitre": "Rez-de-jardin",
         "description": "Le même confort, côté jardin : une chambre paisible, un salon ouvert et une grande salle de bain à double vasque pour se détendre après la piscine.",
-        "image": "images/06-chambre.jpg",
+        "image": "images/dsc-6276-hdr.jpg",
         "caracteristiques": [
           "1 chambre séparée",
           "Canapé convertible",
