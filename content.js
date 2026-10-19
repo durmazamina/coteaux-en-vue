@@ -59,17 +59,15 @@ window.SITE_CONTENT = {
         ]
       },
       {
-        "nom": "Coteaux en Vue Duo",
+        "nom": "Coteaux en Vue Studio",
         "surtitre": "Rez-de-jardin",
         "description": "Le même confort, côté jardin : une chambre paisible, un salon ouvert et une grande salle de bain à double vasque pour se détendre après la piscine.",
         "image": "images/dsc-6276-hdr.jpg",
         "caracteristiques": [
-          "1 chambre séparée",
-          "Canapé convertible",
-          "Salle de bain de 15 m²",
           "Terrasse privée ~25 m²",
           "Lit bébé sur demande",
-          "Cuisine équipée"
+          "Cuisine équipée",
+          "Studio 50m2"
         ]
       }
     ]
