@@ -1,6 +1,6 @@
 window.SITE_CONTENT = {
   "identite": {
-    "nomDebut": "coteauxenvue.com",
+    "nomDebut": "coteauxenvue.fr",
     "nomFin": "coteaux en vue"
   },
   "seo": {
@@ -124,54 +124,59 @@ window.SITE_CONTENT = {
   "galerie": {
     "surtitre": "Galerie",
     "titre": "Un aperçu de votre séjour",
-    "images": [
+    "albums": [
       {
-        "src": "images/02-piscine-maison.jpg",
-        "alt": "La maison et la piscine"
-      },
-      {
-        "src": "images/01-salon-sejour.jpg",
-        "alt": "Le salon"
-      },
-      {
-        "src": "images/06-chambre.jpg",
-        "alt": "La chambre"
-      },
-      {
-        "src": "images/07-salle-de-bain.jpg",
-        "alt": "La salle de bain"
-      },
-      {
-        "src": "images/04-detail-deco.jpg",
-        "alt": "Détail de décoration"
-      },
-      {
-        "src": "images/05-piscine-jardin.jpg",
-        "alt": "La piscine et le jardin"
-      },
-      {
-        "src": "images/dsc-6201-hdr.jpg",
-        "alt": "piscine et jardin"
-      },
-      {
-        "src": "images/03-sejour-salle-a-manger.jpg",
-        "alt": "Le séjour et le coin repas"
-      },
-      {
-        "src": "images/dsc-6270-hdr.jpg",
-        "alt": "cuisine coteaux en vue Studio"
-      },
-      {
-        "src": "images/dsc-6249-hdr.jpg",
-        "alt": "Chambre Studio séparé avec Rideaux"
-      },
-      {
-        "src": "images/dsc-6243-hdr.jpg",
-        "alt": "Terrasse de Studio de 25 m2"
-      },
-      {
-        "src": "images/dsc-6267.jpg",
-        "alt": "tete de lit "
+        "nom": "Toutes les photos",
+        "images": [
+          {
+            "src": "images/02-piscine-maison.jpg",
+            "alt": "La maison et la piscine"
+          },
+          {
+            "src": "images/01-salon-sejour.jpg",
+            "alt": "Le salon"
+          },
+          {
+            "src": "images/06-chambre.jpg",
+            "alt": "La chambre"
+          },
+          {
+            "src": "images/07-salle-de-bain.jpg",
+            "alt": "La salle de bain"
+          },
+          {
+            "src": "images/04-detail-deco.jpg",
+            "alt": "Détail de décoration"
+          },
+          {
+            "src": "images/05-piscine-jardin.jpg",
+            "alt": "La piscine et le jardin"
+          },
+          {
+            "src": "images/dsc-6201-hdr.jpg",
+            "alt": "piscine et jardin"
+          },
+          {
+            "src": "images/03-sejour-salle-a-manger.jpg",
+            "alt": "Le séjour et le coin repas"
+          },
+          {
+            "src": "images/dsc-6270-hdr.jpg",
+            "alt": "cuisine coteaux en vue Studio"
+          },
+          {
+            "src": "images/dsc-6249-hdr.jpg",
+            "alt": "Chambre Studio séparé avec Rideaux"
+          },
+          {
+            "src": "images/dsc-6243-hdr.jpg",
+            "alt": "Terrasse de Studio de 25 m2"
+          },
+          {
+            "src": "images/dsc-6267.jpg",
+            "alt": "tete de lit "
+          }
+        ]
       }
     ]
   },
