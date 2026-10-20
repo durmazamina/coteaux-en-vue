@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Contrat de location · Coteaux en Vue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --or: #bb9a5a; --or-fonce: #9c7d40; --brun: #3d2b1f; --creme: #f5efe6;
+    --vert: #5c7a5a; --blanc: #ffffff; --texte: #3d2b1f; --texte-doux: #6b5a4d;
+    --ligne: #e3d8c8; --erreur: #a3402e;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Jost", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); font-weight: 300; color: var(--texte); background: var(--creme); line-height: 1.6; font-size: 16px; }
+  header { background: #2a1d14; color: var(--creme); padding: 18px 16px; text-align: center; }
+  header a { color: var(--creme); text-decoration: none; font-family: var(--serif); font-size: 1.5rem; }
+  header a span { color: var(--or); font-style: italic; }
+  main { max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 7vw, 2.6rem); line-height: 1.1; color: var(--brun); margin-bottom: 6px; }
+  h2 { font-family: var(--serif); font-weight: 600; font-size: 1.45rem; color: var(--brun); margin: 0 0 12px; }
+  .surtitre { font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; color: var(--or-fonce); font-weight: 500; display: block; margin-bottom: 8px; }
+  .intro { color: var(--texte-doux); margin-bottom: 22px; }
+  .carte { background: var(--blanc); border: 1px solid var(--ligne); padding: 22px 18px; margin-bottom: 18px; }
+  .grille { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .plein { grid-column: 1 / -1; }
+  label { display: block; font-size: .72rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 500; margin-bottom: 5px; }
+  input, select, textarea { width: 100%; font: inherit; font-weight: 400; color: var(--texte); background: #fffdf9; border: 1px solid #d9ccb8; padding: 12px; border-radius: 0; font-size: 16px; }
+  input:focus, select:focus { outline: 2px solid var(--or); outline-offset: 0; border-color: var(--or); }
+  .aide { font-size: .8rem; color: var(--texte-doux); margin-top: 4px; }
+  .recap { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .recap td { padding: 9px 0; border-bottom: 1px solid var(--ligne); vertical-align: top; }
+  .recap td:last-child { text-align: right; font-weight: 400; padding-left: 12px; }
+  .recap tr.total td { border-bottom: 0; font-weight: 500; font-size: 1.1rem; color: var(--brun); padding-top: 12px; }
+  .conditions h3 { font-family: var(--sans); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; color: var(--or-fonce); margin: 16px 0 4px; }
+  .conditions h3:first-child { margin-top: 0; }
+  .conditions p, .conditions li { font-size: .92rem; }
+  .conditions ul { padding-left: 18px; }
+  .coche { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; text-transform: none; letter-spacing: 0; font-size: .95rem; font-weight: 300; cursor: pointer; }
+  .coche input { width: 22px; height: 22px; flex: none; margin-top: 2px; accent-color: var(--vert); }
+  .btn { display: block; width: 100%; padding: 16px 20px; background: var(--or); color: var(--blanc); border: 1px solid var(--or); text-align: center; text-decoration: none; letter-spacing: .12em; text-transform: uppercase; font: 500 .82rem var(--sans); cursor: pointer; margin-top: 10px; }
+  .btn:hover { background: var(--or-fonce); }
+  .btn.second { background: transparent; color: var(--brun); border-color: var(--or); }
+  .btn.vert { background: var(--vert); border-color: var(--vert); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .erreur { color: var(--erreur); font-size: .9rem; margin-top: 8px; min-height: 1.2em; }
+  .ok { background: #eef3ec; border: 1px solid #c9d8c5; padding: 16px; margin-top: 14px; }
+  .lien { word-break: break-all; font-size: .85rem; background: #fffdf9; border: 1px dashed var(--or); padding: 10px; margin-top: 10px; }
+  .cache { display: none; }
+  footer { text-align: center; font-size: .78rem; color: var(--texte-doux); padding: 0 16px 30px; }
+  @media (max-width: 520px) { .grille { grid-template-columns: 1fr; } .carte { padding: 18px 14px; } }
+  @media print {
+    header, .no-print, .btn { display: none !important; }
+    body { background: #fff; font-size: 12px; }
+    .carte { border: 0; padding: 0 0 10px; }
+    main { padding: 0; }
+  }
+</style>
+</head>
+<body>
+<header><a href="./">Coteaux <span>en Vue</span></a></header>
+<main id="app"></main>
+<footer>Amina Durmaz, loueur en meublé de tourisme · SIRET 935 281 089 00026 · 33 Clos du Cossignol, 31320 Aureville</footer>
+
+<script>
+(() => {
+  // ---------- Réglages ----------
+  const HOTE = {
+    nom: "Amina Durmaz",
+    email: "coteauxenvue@outlook.com",
+    whatsapp: "33788867530",
+    telephone: "07 88 86 75 30",
+    adresse: "33 Clos du Cossignol, 31320 Aureville",
+    siret: "935 281 089 00026"
+  };
+  const TAXE = 1.79; // € par adulte et par nuit (Sicoval, meublé 4 étoiles, taxes additionnelles incluses)
+  const LOGEMENTS = {
+    coteaux: { nom: "Les Coteaux en Vue", desc: "Appartement de 50 m² en rez-de-jardin, classé meublé de tourisme 4 étoiles", cap: 3 },
+    duo: { nom: "Les Coteaux en Vue Duo", desc: "Appartement de 50 m² en rez-de-jardin", cap: "" },
+    studio: { nom: "Le Studio", desc: "Studio meublé d'environ 30 m²", cap: "" }
+  };
+
+  const app = document.getElementById("app");
+  const P = new URLSearchParams(location.search);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const num = v => { const n = parseFloat(String(v ?? "").replace(",", ".")); return isFinite(n) ? n : 0; };
+  const eur = n => n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+  const dateFR = iso => { if (!iso) return ""; const [y, m, d] = iso.split("-"); return `${d}/${m}/${y}`; };
+  const nuits = (a, d) => { if (!a || !d) return 0; const n = Math.round((new Date(d) - new Date(a)) / 86400000); return n > 0 ? n : 0; };
+
+  if (P.get("l")) modeVoyageur(); else modePreparer();
+
+  // =========================================================
+  // MODE 1 — l'hôte prépare le lien
+  // =========================================================
+  function modePreparer() {
+    app.innerHTML = `
+      <span class="surtitre">Espace hôte</span>
+      <h1>Préparer un contrat</h1>
+      <p class="intro">Remplissez les infos du séjour, puis envoyez le lien au voyageur par WhatsApp, SMS ou e-mail. Il complète ses coordonnées et signe depuis son téléphone.</p>
+      <form id="prep" class="carte" novalidate>
+        <div class="grille">
+          <div class="plein"><label for="l">Logement</label>
+            <select id="l">${Object.entries(LOGEMENTS).map(([k, v]) => `<option value="${k}">${esc(v.nom)}</option>`).join("")}</select></div>
+          <div><label for="a">Arrivée</label><input type="date" id="a" required></div>
+          <div><label for="d">Départ</label><input type="date" id="d" required></div>
+          <div><label for="ha">Heure d'arrivée (dès)</label><input id="ha" value="16h"></div>
+          <div><label for="hd">Heure de départ (au plus tard)</label><input id="hd" value="10h"></div>
+          <div><label for="cap">Capacité max. (personnes)</label><input id="cap" inputmode="numeric"></div>
+          <div><label for="enr">N° d'enregistrement</label><input id="enr" placeholder="31…"></div>
+          <div><label for="loyer">Loyer total (€)</label><input id="loyer" inputmode="decimal" required></div>
+          <div><label for="menage">Frais de ménage (€)</label><input id="menage" inputmode="decimal" value="0"></div>
+          <div><label for="autre">Autre (€)</label><input id="autre" inputmode="decimal" value="0"></div>
+          <div><label for="autreL">Libellé « autre »</label><input id="autreL" placeholder="Soirée romantique…"></div>
+          <div><label for="arrhes">Arrhes à verser (€)</label><input id="arrhes" inputmode="decimal" value="0">
+            <p class="aide">0 = tout est payé à la réservation.</p></div>
+          <div><label for="solde">Date limite du solde</label><input type="date" id="solde"></div>
+          <div><label for="depot">Dépôt de garantie (€)</label><input id="depot" inputmode="decimal" value="0"></div>
+          <div><label for="animaux">Animaux</label><select id="animaux"><option value="0">Non acceptés</option><option value="1">Acceptés</option></select></div>
+        </div>
+        <p class="aide" style="margin-top:12px">La taxe de séjour (${eur(TAXE)} par adulte et par nuit) est calculée automatiquement selon le nombre d'adultes indiqué par le voyageur.</p>
+        <p class="erreur" id="err"></p>
+        <button class="btn" type="submit">Créer le lien du contrat</button>
+      </form>
+      <div id="res" class="cache"></div>`;
+
+    const f = document.getElementById("prep");
+    const l = f.querySelector("#l"), cap = f.querySelector("#cap");
+    const majCap = () => { cap.value = LOGEMENTS[l.value].cap; };
+    l.addEventListener("change", majCap); majCap();
+
+    f.addEventListener("submit", e => {
+      e.preventDefault();
+      const v = id => f.querySelector("#" + id).value.trim();
+      const err = f.querySelector("#err");
+      if (!v("a") || !v("d") || nuits(v("a"), v("d")) < 1) { err.textContent = "Indiquez des dates d'arrivée et de départ valides."; return; }
+      if (nuits(v("a"), v("d")) > 90) { err.textContent = "Une location saisonnière ne peut pas dépasser 90 jours."; return; }
+      if (!v("loyer")) { err.textContent = "Indiquez le montant du loyer."; return; }
+      err.textContent = "";
+      const q = new URLSearchParams();
+      ["l", "a", "d", "ha", "hd", "cap", "enr", "loyer", "menage", "autre", "autreL", "arrhes", "solde", "depot", "animaux"].forEach(k => { if (v(k) !== "" && v(k) !== "0" || k === "l") q.set(k, v(k)); });
+      const url = location.origin + location.pathname + "?" + q.toString();
+      const msg = `Bonjour, voici votre contrat de location pour ${LOGEMENTS[v("l")].nom} du ${dateFR(v("a"))} au ${dateFR(v("d"))}. Merci de le compléter et de le signer en ligne : ${url}`;
+      const res = document.getElementById("res");
+      res.className = "ok";
+      res.innerHTML = `<strong>Lien prêt.</strong> Envoyez-le au voyageur :
+        <div class="lien" id="lien">${esc(url)}</div>
+        <button class="btn" type="button" id="copier">Copier le lien</button>
+        <a class="btn vert" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Envoyer par WhatsApp</a>
+        <a class="btn second" href="sms:?&body=${encodeURIComponent(msg)}">Envoyer par SMS</a>
+        <a class="btn second" href="${esc(url)}" target="_blank" rel="noopener">Voir le contrat comme le voyageur</a>
+        <p class="aide" style="margin-top:10px">Pensez à envoyer aussi le livret d'accueil en PDF : il sert d'état descriptif du logement.</p>`;
+      res.querySelector("#copier").addEventListener("click", async ev => {
+        try { await navigator.clipboard.writeText(url); ev.target.textContent = "Lien copié ✓"; }
+        catch { ev.target.textContent = "Copiez le lien ci-dessus"; }
+      });
+      res.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  // =========================================================
+  // MODE 2 — le voyageur complète et signe
+  // =========================================================
+  function modeVoyageur() {
+    const L = LOGEMENTS[P.get("l")] || LOGEMENTS.coteaux;
+    const S = {
+      a: P.get("a"), d: P.get("d"), ha: P.get("ha") || "16h", hd: P.get("hd") || "10h",
+      cap: P.get("cap") || L.cap, enr: P.get("enr") || "",
+      loyer: num(P.get("loyer")), menage: num(P.get("menage")), autre: num(P.get("autre")), autreL: P.get("autreL") || "Autre",
+      arrhes: num(P.get("arrhes")), solde: P.get("solde"), depot: num(P.get("depot")), animaux: P.get("animaux") === "1"
+    };
+    const n = nuits(S.a, S.d);
+    if (!n) { app.innerHTML = `<div class="carte"><h2>Lien incomplet</h2><p>Ce lien de contrat n'est pas valide. Merci de contacter votre hôte au ${esc(HOTE.telephone)}.</p></div>`; return; }
+
+    app.innerHTML = `
+      <span class="surtitre">Location saisonnière · meublé de tourisme</span>
+      <h1>Votre contrat de location</h1>
+      <p class="intro">${esc(L.nom)} · du ${dateFR(S.a)} au ${dateFR(S.d)} (${n} nuit${n > 1 ? "s" : ""}). Complétez vos coordonnées, lisez les conditions, puis signez en bas de la page.</p>
+
+      <section class="carte">
+        <h2>1. Vos coordonnées</h2>
+        <div class="grille">
+          <div class="plein"><label for="nom">Nom et prénom</label><input id="nom" autocomplete="name" required></div>
+          <div class="plein"><label for="adr">Adresse postale</label><input id="adr" autocomplete="street-address" required></div>
+          <div><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" required></div>
+          <div><label for="mail">E-mail</label><input id="mail" type="email" autocomplete="email" required></div>
+          <div><label for="ad">Nombre d'adultes</label><input id="ad" type="number" min="1" max="${esc(S.cap || 20)}" value="2" inputmode="numeric"></div>
+          <div><label for="enf">Nombre d'enfants (– de 18 ans)</label><input id="enf" type="number" min="0" value="0" inputmode="numeric"></div>
+        </div>
+        <p class="erreur" id="errCap"></p>
+      </section>
+
+      <section class="carte">
+        <h2>2. Le séjour et le prix</h2>
+        <table class="recap">
+          <tr><td>Logement</td><td>${esc(L.nom)}</td></tr>
+          <tr><td>Adresse</td><td>${esc(HOTE.adresse)}</td></tr>
+          ${S.enr ? `<tr><td>N° d'enregistrement</td><td>${esc(S.enr)}</td></tr>` : ""}
+          <tr><td>Arrivée</td><td>${dateFR(S.a)} à partir de ${esc(S.ha)}</td></tr>
+          <tr><td>Départ</td><td>${dateFR(S.d)} au plus tard à ${esc(S.hd)}</td></tr>
+          ${S.cap ? `<tr><td>Capacité maximale</td><td>${esc(S.cap)} personnes</td></tr>` : ""}
+          <tr><td>Loyer (${n} nuit${n > 1 ? "s" : ""})</td><td>${eur(S.loyer)}</td></tr>
+          ${S.menage ? `<tr><td>Frais de ménage</td><td>${eur(S.menage)}</td></tr>` : ""}
+          ${S.autre ? `<tr><td>${esc(S.autreL)}</td><td>${eur(S.autre)}</td></tr>` : ""}
+          <tr><td>Taxe de séjour <span class="aide" style="display:block">${eur(TAXE)} × <span id="tAd">2</span> adulte(s) × ${n} nuit(s)</span></td><td id="taxe"></td></tr>
+          <tr class="total"><td>Total à payer</td><td id="total"></td></tr>
+        </table>
+        <p class="aide" style="margin-top:10px">${S.arrhes ? `Arrhes à verser à la signature : <strong>${eur(S.arrhes)}</strong>. Solde de <strong id="soldeM"></strong> à régler ${S.solde ? "au plus tard le " + dateFR(S.solde) : "avant l'arrivée"}.` : "Le montant total est à régler à la réservation."}
+        ${S.depot ? ` Dépôt de garantie : <strong>${eur(S.depot)}</strong>, non encaissé sauf dégradation.` : ""}
+        Paiement par virement bancaire ; les coordonnées vous sont communiquées par votre hôte.</p>
+      </section>
+
+      <section class="carte conditions">
+        <h2>3. Conditions de location</h2>
+        <h3>Nature du contrat</h3>
+        <p>Location saisonnière d'un meublé de tourisme (articles L324-1 et suivants du Code du tourisme, 1713 et suivants du Code civil), pour une durée maximale de 90 jours, non renouvelable. Le Locataire n'y élit pas domicile. ${esc(L.desc)}.</p>
+        <h3>État descriptif</h3>
+        <p>L'état descriptif du logement figure dans le livret d'accueil remis au Locataire avant la signature ; il fait partie du contrat.</p>
+        <h3>Réservation et annulation</h3>
+        <p>La réservation est ferme à la signature du présent contrat et au versement ${S.arrhes ? "des arrhes" : "du montant total"}. Les sommes versées à la réservation sont des arrhes (art. 1590 du Code civil) : si le Locataire annule, elles restent acquises au Loueur ; si le Loueur annule, il en rembourse le double. Un départ anticipé ne donne lieu à aucun remboursement. Toute annulation se fait par écrit.</p>
+        <h3>Dépôt de garantie</h3>
+        <p>${S.depot ? `Le dépôt de ${eur(S.depot)} est restitué` : "Si un dépôt est demandé, il est restitué"} dans les 7 jours suivant le départ, déduction faite, sur justificatif, des dégradations, objets manquants ou ménage supplémentaire. Si les dégâts dépassent le dépôt, le Locataire règle la différence.</p>
+        <h3>Le Locataire s'engage à</h3>
+        <ul>
+          <li>occuper les lieux paisiblement et respecter le voisinage (pas de bruit après 23 h) ;</li>
+          <li>ne pas dépasser le nombre d'occupants indiqué ;</li>
+          <li>ne pas organiser de fête, ne pas fumer à l'intérieur ;</li>
+          <li>${S.animaux ? "veiller à ce que les animaux acceptés ne causent aucune dégradation" : "ne pas amener d'animal"} ;</li>
+          <li>ne pas sous-louer ni céder le contrat ;</li>
+          <li>signaler sans délai tout dommage et rendre le logement rangé ;</li>
+          <li>être assuré en responsabilité civile villégiature ;</li>
+          <li>respecter le règlement figurant dans le livret d'accueil.</li>
+        </ul>
+        <h3>Le Loueur s'engage à</h3>
+        <p>Remettre un logement propre, conforme à l'état descriptif, en bon état de fonctionnement, et assurer au Locataire la jouissance paisible des lieux. Toute non-conformité est signalée dans les 24 h suivant l'arrivée.</p>
+        <h3>Litiges</h3>
+        <p>Les parties cherchent d'abord une solution amiable. Le Locataire peut recourir gratuitement à un médiateur de la consommation. À défaut, le tribunal compétent est celui du lieu du logement.</p>
+        <h3>Le Loueur</h3>
+        <p>${esc(HOTE.nom)}, loueur en meublé de tourisme, ${esc(HOTE.adresse)} · SIRET ${esc(HOTE.siret)} · ${esc(HOTE.telephone)} · ${esc(HOTE.email)}</p>
+      </section>
+
+      <section class="carte">
+        <h2>4. Signature</h2>
+        <label class="coche"><input type="checkbox" id="c1"> J'ai reçu le livret d'accueil (état descriptif du logement) avant de signer.</label>
+        <label class="coche"><input type="checkbox" id="c2"> J'ai lu et j'accepte les conditions de location ci-dessus.</label>
+        <div style="margin-top:10px"><label for="sig">Signature : retapez votre nom et prénom</label><input id="sig" autocomplete="off"></div>
+        <p class="aide">Valant mention « lu et approuvé » et signature électronique.</p>
+        <p class="erreur" id="err"></p>
+        <button class="btn" type="button" id="signer">Signer le contrat</button>
+        <div id="fin" class="cache"></div>
+      </section>`;
+
+    const $ = id => document.getElementById(id);
+    const taxeTotal = () => Math.round(TAXE * Math.max(0, parseInt($("ad").value) || 0) * n * 100) / 100;
+    const total = () => S.loyer + S.menage + S.autre + taxeTotal();
+    const maj = () => {
+      const ad = Math.max(0, parseInt($("ad").value) || 0), enf = Math.max(0, parseInt($("enf").value) || 0);
+      $("tAd").textContent = ad; $("taxe").textContent = eur(taxeTotal()); $("total").textContent = eur(total());
+      if ($("soldeM")) $("soldeM").textContent = eur(Math.max(0, total() - S.arrhes));
+      $("errCap").textContent = S.cap && ad + enf > num(S.cap) ? `Attention : ce logement accueille ${S.cap} personnes au maximum.` : "";
+    };
+    $("ad").addEventListener("input", maj); $("enf").addEventListener("input", maj); maj();
+
+    $("signer").addEventListener("click", () => {
+      const v = id => $(id).value.trim();
+      const err = $("err");
+      const manque = [["nom", "votre nom"], ["adr", "votre adresse"], ["tel", "votre téléphone"], ["mail", "votre e-mail"]].filter(([id]) => !v(id)).map(x => x[1]);
+      if (manque.length) { err.textContent = "Merci d'indiquer " + manque.join(", ") + "."; return; }
+      if (!/^\S+@\S+\.\S+$/.test(v("mail"))) { err.textContent = "L'adresse e-mail ne semble pas valide."; return; }
+      const ad = parseInt(v("ad")) || 0, enf = parseInt(v("enf")) || 0;
+      if (ad < 1) { err.textContent = "Indiquez au moins 1 adulte."; return; }
+      if (S.cap && ad + enf > num(S.cap)) { err.textContent = `Ce logement accueille ${S.cap} personnes au maximum.`; return; }
+      if (!$("c1").checked || !$("c2").checked) { err.textContent = "Merci de cocher les deux cases avant de signer."; return; }
+      const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim();
+      if (!v("sig") || norm(v("sig")) !== norm(v("nom"))) { err.textContent = "La signature doit reprendre exactement votre nom et prénom."; return; }
+      err.textContent = "";
+
+      const quand = new Date().toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short" });
+      const texte = [
+        `CONTRAT DE LOCATION SIGNÉ – ${L.nom}`,
+        `Séjour : du ${dateFR(S.a)} (dès ${S.ha}) au ${dateFR(S.d)} (avant ${S.hd}), ${n} nuit(s)`,
+        S.enr ? `N° d'enregistrement : ${S.enr}` : null,
+        ``,
+        `LOCATAIRE`,
+        `${v("nom")}`, `${v("adr")}`, `Tél. ${v("tel")} · ${v("mail")}`,
+        `${ad} adulte(s), ${enf} enfant(s)`,
+        ``,
+        `PRIX`,
+        `Loyer : ${eur(S.loyer)}`,
+        S.menage ? `Ménage : ${eur(S.menage)}` : null,
+        S.autre ? `${S.autreL} : ${eur(S.autre)}` : null,
+        `Taxe de séjour : ${eur(taxeTotal())}`,
+        `TOTAL : ${eur(total())}`,
+        S.arrhes ? `Arrhes : ${eur(S.arrhes)} · Solde : ${eur(Math.max(0, total() - S.arrhes))}${S.solde ? " avant le " + dateFR(S.solde) : ""}` : `Paiement : totalité à la réservation`,
+        S.depot ? `Dépôt de garantie : ${eur(S.depot)}` : null,
+        ``,
+        `☑ Livret d'accueil (état descriptif) reçu avant signature`,
+        `☑ Conditions de location lues et acceptées (version du 20/10/2026)`,
+        `Signé électroniquement par : ${v("sig")}, le ${quand}`
+      ].filter(x => x !== null).join("\n");
+
+      const sujet = `Contrat signé – ${v("nom")} – ${L.nom} – ${dateFR(S.a)}`;
+      const fin = $("fin");
+      fin.className = "ok";
+      fin.innerHTML = `<strong>Dernière étape : envoyez le contrat signé à votre hôte.</strong>
+        <a class="btn vert" href="https://wa.me/${HOTE.whatsapp}?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Envoyer par WhatsApp</a>
+        <a class="btn" href="mailto:${HOTE.email}?cc=${encodeURIComponent(v("mail"))}&subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(texte)}">Envoyer par e-mail</a>
+        <button class="btn second" type="button" id="imprimer">Enregistrer mon exemplaire (PDF)</button>
+        <p class="aide" style="margin-top:10px">Votre réservation est confirmée à réception du contrat et du paiement.</p>`;
+      $("imprimer").addEventListener("click", () => window.print());
+      ["nom", "adr", "tel", "mail", "ad", "enf", "sig", "c1", "c2"].forEach(id => $(id).disabled = true);
+      $("signer").disabled = true; $("signer").textContent = "Contrat signé ✓";
+      fin.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+})();
+</script>
+</body>
+</html>
