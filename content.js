@@ -297,6 +297,6 @@ window.SITE_CONTENT = {
     "image": "images/02-piscine-maison.jpg"
   },
   "footer": {
-    "texte": "Deux logements en rez-de-jardin avec piscine, sur les coteaux au sud de Toulouse."
+    "texte": "Deux logements en rez-de-jardin avec piscine, sur les coteaux au sud de Toulouse. · Amina Durmaz, loueur en meublé de tourisme · SIRET 935 281 089 00026"
   }
 };
